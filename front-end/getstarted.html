@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>QuizMe - Get Started</title>
+  <link href="https://fonts.googleapis.com/css2?family=League+Spartan&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <div class="logo-container">
+      <img src="logo.png" alt="QuizMe" class="logo">
+    </div>
+  
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="login.html" >Login</a></li>
+        <li><a href="signup.html" >Sign up</a></li>
+        <li><a href="new.html" >new flash</a></li>
+        <li><a href="getstarted.html" >get started up</a></li>
+        <li><a href="append.html" >append </a></li>
+        <li><a href="success.html" >success </a></li>
+        <li><a href="your-flashcards.html" >your flashcards </a></li>
+        <li><a href="aboutus.html" >your flashcards </a></li>
+
+
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <p class="subtitle">For more accurate flashcards that cover at least 99% of the material, please input shorter and more concise texts. You will have the option to append to your existing flashcard if you need to add more texts later.</p>
+      <!-- Add your content here -->
+    </div>
+
+    <div class="form-container">
+        <p class = "paste"> Paste or type your study material here </p>
+        <textarea class="study-material" placeholder="max 300 words" rows="6"></textarea>
+        <p class = "paste2" > Number of flash cards to generate </p>
+
+        <select id="flashcard-count">
+          <option value="5">5 flashcards</option>
+          <option value="10">10 flashcards</option>
+          <option value="15">15 flashcards</option>
+          <!-- Add more options as needed -->
+        </select>
+        <!-- <button id="create-flashcards-button">Create Flashcards</button> -->
+      </div>
+
+      <div class="Appnd">
+        <p class="subtitle">Would you like to append your flashcards or create a new flashcard?</p>          
+        <button class="signup-button" onclick="window.location.href='append.html'">Append</button> OR
+        <button class="signup-button" onclick="window.location.href='new.html'">New</button>
+      </div>
+
+  </section>
+
+</body>
+</html>

@@ -1,0 +1,178 @@
+/* Reset default styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+ 
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+  }
+
+
+  
+  nav ul {
+    list-style: none;
+    display: flex;
+  }
+  
+  nav ul li {
+    margin-right: 20px;
+  }
+  
+  nav ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  nav ul li a.active {
+    color: #ff5722;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    overflow-y: scroll; /* Enable vertical scrolling */
+  }
+  
+  .hero {
+    background-color: #ffefdf;
+    text-align: center;
+    padding: 100px 0;
+    height: 100vh; /* Set height to 100% of viewport height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  /* Adjust other styles as needed */
+  
+  
+  .hero h1 {
+    color: #ffffff;
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .hero .subtitle {
+    color: black;
+    font-size: 20px;
+    margin-bottom: 40px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+  }
+  
+  .get-started-button {
+    padding: 9px;
+    border: 3px solid rgb(2, 9, 18);
+    color: green;
+    text-decoration: none;
+    font-weight: bold;
+    width: 100px;
+    height: 50px;
+    border-radius: 10px;
+  }
+  
+
+  .form-container {
+    margin: 10px auto;
+    max-width: 500px;
+  }
+  .paste{
+    font-family: 'League Spartan';
+    font-size: 20px;
+    margin-bottom:10px ;
+  }
+
+
+  .form-container input[type="text"],
+  .form-container select {
+    margin-top:30px ;
+
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 2px solid #0b0b4c;
+    margin-bottom: 10px;
+  }
+
+  .form-container button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: green;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .get-started-button:hover {
+    background-color: rgb(227, 214, 29);
+    color: white;
+  }
+  .append-button{
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: green;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+
+  }
+  
+  
+  .study-material {
+    width: 100%;
+    height: 200px; /* Adjust the height value as needed */
+    padding: 10px;
+    border-radius: 15px;
+    border: 1px solid #ccc;
+    margin: 10px auto;
+    display: flex;
+    align-items: center;
+
+
+    justify-content: center;
+  }
+
+  .study-material2{
+    width: 100%;
+    height: 50px; /* Adjust the height value as needed */
+    padding: 10px;
+    border-radius: 1px;
+    border: 2px solid #ccc;
+    margin: 10px auto;
+    display: flex;
+    align-items: center;
+  }
+  
+
+  img[alt="QuizMe"] {
+    font-family: 'League Spartan';
+    font-size: 45px;
+    font-weight: bold;
+
+    
+  }
+  .Heading {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    padding: 10px;
+
+    background-color: rgb(2, 50, 2);
+    color: white;
+    display:ruby-base;
+  }
+  .paste2{
+    margin-top: 20px;
+    font-family: 'League Spartan';
+    font-size: 20px;
+    margin-bottom:-20px ;
+  }
