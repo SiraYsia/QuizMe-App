@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <title>QuizMe - Flashcards</title>
+  <link href="https://fonts.googleapis.com/css2?family=League+Spartan&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <div class="logo-container">
+      <img src="logo.png" alt="QuizMe" class="logo">
+    </div>
+  
+    <nav>
+      <ul>
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        <li><a href="{{ url_for('login') }}">Login</a></li>
+        <li><a href="{{ url_for('signup') }}">Sign up</a></li>
+        <li><a href="{{ url_for('new_flash') }}">New Flash</a></li>
+        <li><a href="{{ url_for('get_started') }}">Get Started</a></li>
+        <li><a href="{{ url_for('append') }}">Append</a></li>
+        <li><a href="{{ url_for('success') }}">Success</a></li>
+        <li><a href="{{ url_for('your_flashcards') }}">Your Flashcards</a></li>
+        <li><a href="{{ url_for('about_us') }}">About Us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="flashcards">
+    <form method="POST" action="{{ url_for('your_flashcards') }}">
+        <h2>Flashcards</h2>
+        <table>
+            <tr>
+                <th>Question</th>
+                <th>Answer</th>
+            </tr>
+            {% for flashcard in flashcards %}
+            <tr>
+                <td><input type="text" name="question[]" value="{{ flashcard[0] }}"></td>
+                <td><input type="text" name="answer[]" value="{{ flashcard[1] }}"></td>
+            </tr>
+            {% endfor %}
+        </table>
+  
+
+      <label for="flashcard_set_name">Flashcard Set Name:</label>
+      <input type="text" id="flashcard_set_name" name="flashcard_set_name" required>
+
+      <button type="submit">Save Flashcards</button>
+    </form>
+  </section>
+</body>
+</html>

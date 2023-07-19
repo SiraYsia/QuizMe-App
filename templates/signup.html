@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <title>QuizMe - Get Started</title>
+  <link href="https://fonts.googleapis.com/css2?family=League+Spartan&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <div class="logo-container">
+      <img src="logo.png" alt="QuizMe" class="logo">
+    </div>
+  
+    <nav>
+      <ul>
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        <li><a href="{{ url_for('login') }}">Login</a></li>
+        <li><a href="{{ url_for('signup') }}" class="active">Sign up</a></li>
+        <li><a href="{{ url_for('new_flash') }}">New Flash</a></li>
+        <li><a href="{{ url_for('get_started') }}">Get Started</a></li>
+        <li><a href="{{ url_for('append') }}">Append</a></li>
+        <li><a href="{{ url_for('success') }}">Success</a></li>
+        <li><a href="{{ url_for('your_flashcards') }}">Your Flashcards</a></li>
+        <li><a href="{{ url_for('about_us') }}">About Us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <section class="signup-page">
+      <p class="subtitle">Sign up to access and view your generated flashcards. With just a few clicks, you can start studying and mastering your material with ease.</p>
+      
+      <div class="form-container">
+        <form action="{{ url_for('signup') }}" method="POST">
+          <input type="text" name="email" id="email" placeholder="Email Address">
+          <input type="password" name="password" id="password" placeholder="Password">
+          <button type="submit" id="signup-button">Sign Up</button>
+        </form>
+      </div>
+    </section>
+  </section>
+
+  <footer>
+    <!-- Add your footer content here -->
+  </footer>
+</body>
+</html>

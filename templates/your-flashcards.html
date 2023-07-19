@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <title>QuizMe</title>
+  <link href="https://fonts.googleapis.com/css2?family=League+Spartan&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <div class="logo-container">
+      <img src="logo.png" alt="QuizMe" class="logo">
+    </div>
+    <nav>
+      <ul>
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        <li><a href="{{ url_for('login') }}">Login</a></li>
+        <li><a href="{{ url_for('signup') }}">Sign up</a></li>
+        <li><a href="{{ url_for('new_flash') }}">New Flash</a></li>
+        <li><a href="{{ url_for('get_started') }}">Get Started</a></li>
+        <li><a href="{{ url_for('append') }}">Append</a></li>
+        <li><a href="{{ url_for('success') }}">Success</a></li>
+        <li><a href="{{ url_for('your_flashcards') }}" class="active">Your Flashcards</a></li>
+        <li><a href="{{ url_for('about_us') }}">About Us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1 class="subtitle">Now displaying All the flashcards in your database</h1>
+    <ul class="flashcard-list">
+      {% for flashcard_set in flashcard_sets %}
+        <li>
+          <h3>
+            <a href="{{ url_for('single_flashcard', flashcard_set_name=flashcard_set.name) }}">{{ flashcard_set.name }}</a>
+          </h3>
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+</body>
+</html>

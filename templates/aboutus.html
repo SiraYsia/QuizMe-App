@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <title >QuizMe</title>
+  <link href="https://fonts.googleapis.com/css2?family=League+Spartan&display=swap" rel="stylesheet">
+
+</head>
+<body>
+  <header>
+    <div class="logo-container">
+        <img src="logo.png" alt="QuizMe" class="logo">
+    </div>
+  
+    <nav>
+      <ul>
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        <li><a href="{{ url_for('login') }}">Login</a></li>
+        <li><a href="{{ url_for('signup') }}">Sign up</a></li>
+        <li><a href="{{ url_for('new_flash') }}">New Flash</a></li>
+        <li><a href="{{ url_for('get_started') }}">Get Started</a></li>
+        <li><a href="{{ url_for('append') }}">Append</a></li>
+        <li><a href="{{ url_for('success') }}">Success</a></li>
+        <li><a href="{{ url_for('your_flashcards') }}">Your Flashcards</a></li>
+        <li><a href="{{ url_for('about_us') }}" class="active">About Us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <pre class="subtitle"> About Us:
+
+        At QiziMe, our mission is to revolutionize the way students study by leveraging AI-powered flashcard
+        generation. We understand the challenges of traditional study methods and aim to provide a solution 
+        that enhances efficiency, retention, and personalization.
+       
+       Why We Created QuiziMe:
+
+       The inspiration for QuizMe arose from our own experiences as students facing the challenge of memorizing 
+       vast amounts of information. We realized the power of flashcards in enhancing information retention and
+        wanted to simplify the process of flashcard creation. We aimed to develop a user-friendly program that 
+        leverages AI technology to generate accurate and tailored flashcards, saving time and optimizing the 
+        learning experience.
+       
+       Contact Us: 
+
+       We value your feedback, suggestions, and questions. Feel free to reach out to us with any inquiries or 
+       feedback you may have. You can contact us by email at [email address] 
+       
+       Thank you for being a part of the QiziMe community, and we look forward to helping you succeed in your studies!"
+       
+       
+       </pre>
+   
+</section>
+
+
+</body>
+</html>

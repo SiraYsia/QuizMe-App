@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <title>QuizMe - Get Started</title>
+  <link href="https://fonts.googleapis.com/css2?family=League+Spartan&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <div class="logo-container">
+      <img src="logo.png" alt="QuizMe" class="logo">
+    </div>
+  
+    <nav>
+      <ul>
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        <li><a href="{{ url_for('login') }}">Login</a></li>
+        <li><a href="{{ url_for('signup') }}">Sign up</a></li>
+        <li><a href="{{ url_for('new_flash') }}">New Flash</a></li>
+        <li><a href="{{ url_for('get_started') }}" class="active">Get Started</a></li>
+        <li><a href="{{ url_for('append') }}">Append</a></li>
+        <li><a href="{{ url_for('success') }}">Success</a></li>
+        <li><a href="{{ url_for('your_flashcards') }}">Your Flashcards</a></li>
+        <li><a href="{{ url_for('about_us') }}">About Us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <p class="subtitle">For more accurate flashcards that cover at least 99% of the material, please input shorter and more concise texts. You will have the option to append to your existing flashcard if you need to add more texts later.</p>
+  
+    <div class="form-container">
+      <form method="POST" action="{{ url_for('create_flashcards') }}">
+        <p class="paste">Paste or type your study material here:</p>
+        <textarea class="study-material" name="study_material" placeholder="max 300 words" rows="6"></textarea>
+        <p class="paste2">Number of flashcards to generate:</p>
+        <textarea class="study-material" name="flashcard_count" placeholder="5" rows="6"></textarea>
+
+      
+
+
+        <button type="submit" id="create-flashcards-button">Create Flashcards</button>
+      </form>
+    </div>
+
+  </section>
+
+</body>
+</html>
+        <!-- <p class="subtitle">Would you like to append your flashcards or create a new flashcard?</p>    
+        <div class="container">
+          <a href="{{ url_for('append') }}" class="get-started-button">Append</a>
+          <a href="{{ url_for('new_flash') }}" class="get-started-button">New</a>
+        </div>      -->
