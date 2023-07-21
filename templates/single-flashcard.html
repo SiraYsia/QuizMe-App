@@ -14,58 +14,9 @@
     </div>
     <nav>
       <ul>
-        <li><a href="{{ url_for('index') }}">Home</a></li>
-        <li><a href="{{ url_for('login') }}">Login</a></li>
-        <li><a href="{{ url_for('signup') }}">Sign up</a></li>
-        <li><a href="{{ url_for('new_flash') }}">New Flash</a></li>
-        <li><a href="{{ url_for('get_started') }}">Get Started</a></li>
-        <li><a href="{{ url_for('append') }}">Append</a></li>
-        <li><a href="{{ url_for('success') }}">Success</a></li>
-        <li><a href="{{ url_for('your_flashcards') }}" class="active">Your Flashcards</a></li>
-        <li><a href="{{ url_for('about_us') }}">About Us</a></li>
-      </ul>
-    </nav>
-  </header>
+        <li><a href="{{ url_for('index') }}">Log out</a></li>
+        <li><a href="{{ url_for('your_flashcards') }}">Your flashcasrds</a></li>
 
-  <section class="hero">
-    <h1 class="subtitle">Flashcard Set: {{ flashcard_set_name }}</h1>
-    <ul class="flashcard-list">
-      {% for flashcard in flashcards %}
-        <li>
-          <div class="flashcard">
-            <h3 class="flashcard-front">{{ flashcard.front }}</h3>
-            <p class="flashcard-back">{{ flashcard.back }}</p>
-          </div>
-        </li>
-      {% endfor %}
-    </ul>
-  </section>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-  <title>QuizMe - Flashcards</title>
-  <link href="https://fonts.googleapis.com/css2?family=League+Spartan&display=swap" rel="stylesheet">
-</head>
-<body>
-  <header>
-    <div class="logo-container">
-      <img src="logo.png" alt="QuizMe" class="logo">
-    </div>
-    <nav>
-      <ul>
-        <li><a href="{{ url_for('index') }}">Home</a></li>
-        <li><a href="{{ url_for('login') }}">Login</a></li>
-        <li><a href="{{ url_for('signup') }}">Sign up</a></li>
-        <li><a href="{{ url_for('new_flash') }}">New Flash</a></li>
-        <li><a href="{{ url_for('get_started') }}">Get Started</a></li>
-        <li><a href="{{ url_for('append') }}">Append</a></li>
-        <li><a href="{{ url_for('success') }}">Success</a></li>
-        <li><a href="{{ url_for('your_flashcards') }}" class="active">Your Flashcards</a></li>
         <li><a href="{{ url_for('about_us') }}">About Us</a></li>
       </ul>
     </nav>

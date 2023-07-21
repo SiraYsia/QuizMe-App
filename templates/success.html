@@ -16,14 +16,8 @@
   
     <nav>
       <ul>
-        <li><a href="{{ url_for('index') }}">Home</a></li>
-        <li><a href="{{ url_for('login') }}">Login</a></li>
-        <li><a href="{{ url_for('signup') }}">Sign up</a></li>
-        <li><a href="{{ url_for('new_flash') }}">New Flash</a></li>
-        <li><a href="{{ url_for('get_started') }}">Get Started</a></li>
-        <li><a href="{{ url_for('append') }}">Append</a></li>
+        <li><a href="{{ url_for('index') }}">log out</a></li>
         <li><a href="{{ url_for('success') }}" class="active">Success</a></li>
-        <li><a href="{{ url_for('your_flashcards') }}">Your Flashcards</a></li>
         <li><a href="{{ url_for('about_us') }}">About Us</a></li>
 
       </ul>
@@ -34,6 +28,8 @@
     <p class="subtitle"> Hi <b> {{ user.email.split('@')[0] }}! </b> You are logged in. Start Creating Flashcards.</p>
     <div class="container"> 
         <a href="{{ url_for('get_started') }}" class="get-started-button">Create Flashcards</a>
+        <a href="{{ url_for('your_flashcards') }}" class="get-started-button">Your Flashcards</a></li> 
+
     </div>
 
     
