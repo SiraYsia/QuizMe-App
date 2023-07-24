@@ -59,6 +59,9 @@ def login():
 
         # Retrieve the user from the database based on the provided email
         user = User.query.filter_by(email=email).first()
+        if not email or not password:
+            error_message = "Please provide both email and password."
+            return render_template('login.html', error_message=error_message)
 
         if user:
             # Compare the hashed password stored in the database with the provided password
