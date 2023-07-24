@@ -11,45 +11,45 @@
 <body>
   <header>
     <div class="logo-container">
-        <img src="logo.png" alt="QuizMe" class="logo">
+      <h1><b>QuizMe</b></h1>
     </div>
   
     <nav>
       <ul>
         <li><a href="{{ url_for('index') }}">Home</a></li>
-        <li><a href="{{ url_for('your_flashcards') }}">Your flashcasrds</a></li>
         <li><a href="{{ url_for('about_us') }}" class="active">About Us</a></li>
       </ul>
     </nav>
   </header>
-
-  <section class="hero">
-    <pre class="subtitle"> About Us:
-
-        At QiziMe, our mission is to revolutionize the way students study by leveraging AI-powered flashcard
+    <div class="about-us-text">
+      <h2>About Us:</h2>
+      <p>
+        At QuizMe, our mission is to revolutionize the way students study by leveraging AI-powered flashcard
         generation. We understand the challenges of traditional study methods and aim to provide a solution 
         that enhances efficiency, retention, and personalization.
-       
-       Why We Created QuiziMe:
-
-       The inspiration for QuizMe arose from our own experiences as students facing the challenge of memorizing 
-       vast amounts of information. We realized the power of flashcards in enhancing information retention and
+      </p>
+    </div>
+    <div class="why-us-text">
+      <h2>Why We Created QuizMe:</h2>
+      <p>
+        The inspiration for QuizMe arose from our own experiences as students facing the challenge of memorizing 
+        vast amounts of information. We realized the power of flashcards in enhancing information retention and
         wanted to simplify the process of flashcard creation. We aimed to develop a user-friendly program that 
         leverages AI technology to generate accurate and tailored flashcards, saving time and optimizing the 
         learning experience.
-       
-       Contact Us: 
-
-       We value your feedback, suggestions, and questions. Feel free to reach out to us with any inquiries or 
-       feedback you may have. You can contact us by email at [email address] 
-       
-       Thank you for being a part of the QiziMe community, and we look forward to helping you succeed in your studies!"
-       
-       
-       </pre>
-   
-</section>
-
-
+      </p>
+    </div>
+    <div class="contact-us-text">
+      <h2>Contact Us:</h2>
+      <p>
+        We value your feedback, suggestions, and questions. Feel free to reach out to us with any inquiries or 
+        feedback you may have. You can contact us by email at <a href="mailto:contact@example.com">quizsupport@quizme.edu</a>.
+      </p>
+    </div>
+    <div class="thank-you-text">
+      <p>
+        Thank you for being a part of the QuizMe community, and we look forward to helping you succeed in your studies!
+      </p>
+    </div>
 </body>
 </html>

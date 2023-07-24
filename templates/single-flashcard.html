@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -10,7 +10,7 @@
 <body>
   <header>
     <div class="logo-container">
-      <img src="logo.png" alt="QuizMe" class="logo">
+      <h1><b>QuizMe</b></h1>
     </div>
     <nav>
       <ul>
@@ -36,4 +36,49 @@
     </ul>
   </section>
 </body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <title> QuizMe - Flashcards </title>
+  <link href="https://fonts.googleapis.com/css2?family=League+Spartan&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+  <header>
+    <div class="logo-container">
+      <p id = "subtitle"> QuizMe </p>
+    </div>
+
+    <nav>
+      <ul>
+        <li><a class="flashcard-nav" href="{{ url_for('index') }}">Home</a></li>
+        <li><a href="{{ url_for('your_flashcards') }}"> Your Flashcards </a></li>
+        <li><a class="flashcard-nav" href="{{ url_for('about_us') }}">About Us</a></li>
+      </ul>
+    </nav>
+  </header>
+  <div class="wrapper">
+    {% for flashcard in flashcards %}
+    <div class="card-design">
+      <div class="front">
+        <p>{{ flashcard.front }}</p>
+      </div>
+      <div class="back">
+        <p>{{ flashcard.back }}</p>
+        <button class="favorite-button">Favorite</button>
+
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <script src="{{url_for('static', filename='script.js')}}"></script>
+</body>
+
 </html>

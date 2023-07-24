@@ -10,7 +10,7 @@
 <body>
   <header>
     <div class="logo-container">
-        <img src="logo.png" alt="QuizMe" class="logo">
+      <h1><b>QuizMe</b></h1>
     </div>
   
     <nav>
@@ -18,19 +18,29 @@
         <li><a href="{{ url_for('index') }}" class="active">Home</a></li>
         <li><a href="{{ url_for('login') }}">Login</a></li>
         <li><a href="{{ url_for('signup') }}">Sign up</a></li>
-        <li><a href="{{ url_for('get_started') }}">Get Started</a></li>
         <li><a href="{{ url_for('about_us') }}">About Us</a></li>
 
       </ul>
     </nav>
   </header>
 
+  <div class="space">
+    
+  </div>
+
+  <div class="first">
+    <div class="image-container">
+<img className="img" src="{{ url_for('static', filename='first.jpg') }}" alt="first">
+</div>
+<div class="text-container">
   <section class="hero">
-    <h1 class="Heading">Create Flashcards with Ease</h1>
-    <p class="subtitle">QuizMe is the ultimate flashcard generator that leverages the power of AI. Simply input your study material, and we'll generate accurate and concise flashcards for you. Save time, improve retention, and personalize your learning experience.</p>
+    <h1 class="Heading">Level Up Your Learning!</h1>
+    <p class="subtitle3">Create unlimited Flashcards with jsut one click.</p>
     <div class="container">
       <a href="{{ url_for('login') }}" class="get-started-button">Get Started</a>
     </div>
   </section>
+</div>
+</div>
 </body>
 </html>

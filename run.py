@@ -84,6 +84,22 @@ def signup():
         email = request.form.get('email')
         password = request.form.get('password')
 
+        if not email and not password:
+            error_message = "Provide Email and Password"
+            return render_template('signup.html', error_message=error_message)
+        if not email or not password:
+                    error_message = "Provide Email and Password"
+                    return render_template('signup.html', error_message=error_message)
+
+
+        user = User.query.filter_by(email=email).first()
+        if user:
+            # Email is not unique, show an error message
+            error_message = "Email is already in use. Please choose a different email."
+            return render_template('signup.html', error_message=error_message)
+
+
+
         # Hash the password using bcrypt
         hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
@@ -98,21 +114,36 @@ def signup():
     # GET request, render the sign-up form
     return render_template('signup.html')
 
-@app.route('/getstarted') 
+@app.route('/create-flashcards') 
 def get_started():
     return render_template('getstarted.html')
 
 @app.route('/createflashcards', methods=['GET', 'POST'])
 def create_flashcards():
     study_material = request.form.get('study_material')
-    flashcard_count = int(request.form.get('flashcard_count'))
+    flashcard_count = request.form.get('flashcard_count')
+
+    # Error handling for missing study material or flashcard count
+    if not study_material and not flashcard_count:
+        error_message = "Study material and flashcard count are required fields."
+        return render_template('getstarted.html', error_message=error_message)
+    if not study_material or not flashcard_count:
+        error_message = "Study material and flashcard count are required fields."
+        return render_template('getstarted.html', error_message=error_message)    
+
+    try:
+        flashcard_count = int(flashcard_count)
+        if flashcard_count <= 0:
+            raise ValueError()
+    except ValueError:
+        error_message = "Invalid flashcard count. Please provide a positive integer."
+        return render_template('getstarted.html', flashcards=[], error_message=error_message)
+
     append_option = request.form.get('append_option')
     flashcards = generate_flashcards(study_material, flashcard_count)
-  
 
     if append_option == 'no':
         return render_template('flashcards.html', flashcards=flashcards)
-    
 
     if append_option == "yes":
         # Retrieve the authenticated user
@@ -121,19 +152,24 @@ def create_flashcards():
 
         # Find the flashcard set with the given name associated with the user
         flashcard_set_name = request.form.get('append_name')
+        if not flashcard_set_name:
+            error_message = "Specfiy the name of flashcard set you want to append to"
+            return render_template('getstarted.html', error_message=error_message)
+
+        
+        
         flashcard_set = FlashcardSet.query.filter_by(name=flashcard_set_name, user=user).first()
 
-        if flashcard_set:
-            existing_flashcards = flashcard_set.flashcards
-            all_flashcards = existing_flashcards.copy()
+        if not flashcard_set:
+            error_message = f"Flashcard set '{flashcard_set_name}' does not exist. Please provide a valid set name."
+            return render_template('getstarted.html', flashcards=[], error_message=error_message)
 
-
-        formatted_flashcards = [[flashcard.front, flashcard.back] for flashcard in all_flashcards]
+        existing_flashcards = flashcard_set.flashcards
+        formatted_flashcards = [[flashcard.front, flashcard.back] for flashcard in existing_flashcards]
         appended_array = formatted_flashcards + flashcards
-        
 
         return render_template('flashcards.html', flashcards=appended_array)
-    
+
     return redirect('index.html')
 
 
@@ -185,11 +221,14 @@ def single_flashcard(flashcard_set_name):
         # Retrieve the flashcards associated with the flashcard set
         flashcards = flashcard_set.flashcards
         
+        
         # Render the single-flashcard.html template with the flashcards
         return render_template('single-flashcard.html', flashcards=flashcards, flashcard_set_name=flashcard_set_name)
     else:
         # Handle the case when the flashcard set is not found
         return "Flashcard set not found"
+    
+
 # Add a new route for editing a flashcard set
 @app.route('/edit_flashcard_set/<flashcard_set_name>', methods=['GET', 'POST'])
 def edit_flashcard_set(flashcard_set_name):
@@ -249,8 +288,8 @@ def delete_flashcard_set(flashcard_set_name):
 
     # Find the flashcard set with the given name associated with the user
     flashcard_set = FlashcardSet.query.filter_by(name=flashcard_set_name, user=user).first()
-    print(flashcard_set)
-    print("ASD")
+
+
 
     if flashcard_set:
         # Delete the flashcard_set and associated flashcards from the database
@@ -260,7 +299,7 @@ def delete_flashcard_set(flashcard_set_name):
     else:
         return 'Flashcard set not found', 404
     
-    
+
 @app.route('/search_flashcard_sets', methods=['POST'])
 def search_flashcard_sets():
     if 'user_id' not in session:

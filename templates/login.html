@@ -11,7 +11,7 @@
 <body>
   <header>
     <div class="logo-container">
-      <img src="logo.png" alt="QuizMe" class="logo">
+      <h1><b>QuizMe</b></h1>
     </div>
   
     <nav>
@@ -23,30 +23,31 @@
       </ul>
     </nav>
   </header>
-
-  <section class="hero">
+  <div class="login-container">
+    <div class="Access">
+      <p>Access Your <span class="flashcards-text">flashcards!</span></p>
+    </div>
     <section class="login-page">
-      <h2 class="page-heading">Your flashcards are ready!</h2>
-      <p class="subtitle">Login to your account to access and view your generated flashcards. With just a few clicks, you can start studying and mastering your material with ease.</p>
-      
       <div class="form-container">
         <form action="{{ url_for('login') }}" method="POST">
+          <p><span class="log-in-sign-up-text">Log in or Sign up</span></p>
+          <h4>Username: </h4>
           <input type="text" name="email" id="email" placeholder="Email Address">
+          <h4>Password: </h4>
           <input type="password" name="password" id="password" placeholder="Password">
           <button type="submit" id="login-button">Login</button>
+          <p class="signup-instruction">Don't have an account yet? Sign up below:</p>
+      
+          <div class="container"> 
+            <a href="{{ url_for('signup') }}" id="signup-button"> <p id = 'signup_text'> Sign up </p></a>
+          </div>
         </form>
       </div>
   
-      <p class="signup-instruction">Don't have an account yet? Sign up below:</p>
-  
-      <div class="container"> 
-        <a href="{{ url_for('signup') }}" id="signup-button">Sign up</a>
-      </div>
     </section>
-  </section>
-
   <footer>
     <!-- Add your footer content here -->
   </footer>
 </body>
 </html>
+

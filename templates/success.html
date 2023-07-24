@@ -11,12 +11,12 @@
 <body>
   <header>
     <div class="logo-container">
-        <img src="logo.png" alt="QuizMe" class="logo">
+      <h1><b>QuizMe</b></h1>
     </div>
   
     <nav>
       <ul>
-        <li><a href="{{ url_for('index') }}">log out</a></li>
+        <li><a href="{{ url_for('index') }}">Log out</a></li>
         <li><a href="{{ url_for('success') }}" class="active">Success</a></li>
         <li><a href="{{ url_for('about_us') }}">About Us</a></li>
 
@@ -24,17 +24,29 @@
     </nav>
   </header>
 
-  <section class="hero">
-    <p class="subtitle"> Hi <b> {{ user.email.split('@')[0] }}! </b> You are logged in. Start Creating Flashcards.</p>
-    <div class="container"> 
-        <a href="{{ url_for('get_started') }}" class="get-started-button">Create Flashcards</a>
-        <a href="{{ url_for('your_flashcards') }}" class="get-started-button">Your Flashcards</a></li> 
-
+  
+    <div class="success">
+      <div class="card">
+        <div class="sub">
+          <i class="checkmark">✓</i>
+        </div>
+          <h1 class="success-container">Success</h1> 
+          <p class="success-message"> Hi <b> {{ user.email.split('@')[0] }}! </b> You are logged in. Start Creating Flashcards.</p>
+          <div class="create"> 
+            <a href="{{ url_for('get_started') }}" class="get-started-button">Create Flashcards</a>
+            <a href="{{ url_for('your_flashcards') }}" class="get-started-button">Your Flashcards</a></li>
+            </div>
+        </div>
     </div>
-
+  </div>
     
-</section>
+
 
 
 </body>
 </html>
+
+<!-- <p class="subtitle"> Hi <b> {{ user.email.split('@')[0] }}! </b> You are logged in. Start Creating Flashcards.</p>
+    <div class="container"> 
+        <a href="{{ url_for('get_started') }}" class="get-started-button">Create Flashcards</a>
+        <a href="{{ url_for('your_flashcards') }}" class="get-started-button">Your Flashcards</a></li>  -->

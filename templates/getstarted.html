@@ -10,43 +10,54 @@
 <body>
   <header>
     <div class="logo-container">
-      <img src="logo.png" alt="QuizMe" class="logo">
+      <h1><b>QuizMe</b></h1>
     </div>
   
     <nav>
       <ul>
         <li><a href="{{ url_for('index') }}">Home</a></li>
         <li><a href="{{ url_for('get_started') }}" class="active">Get Started</a></li>
-        <li><a href="{{ url_for('your_flashcards') }}"> your flashcards </a></li>
+        <li><a href="{{ url_for('your_flashcards') }}"> Your Flashcards </a></li>
         <li><a href="{{ url_for('about_us') }}">About Us</a></li>
       </ul>
     </nav>
   </header>
-
-  <section class="hero">
-    <p class="subtitle">For more accurate flashcards that cover at least 99% of the material, please input shorter and more concise texts. 
+  <div class="instructions">
+    <h4 class="subtitles">How to get started:</h4>
+    <p class="subtitles">For more accurate flashcards that cover at least 99% of the material, please input shorter and more concise texts. 
       You will have the option to append to your existing flashcard if you need to add more texts later.</p>
-
-      <p> The shorter your text the more flashcards you can get out of it(has to do with max_tokens  with the API)</p>
   
-    <div class="form-container">
-      <form method="POST" action="{{ url_for('create_flashcards') }}">
-        <p class="paste">Paste or type your study material here:</p>
-        <textarea class="study-material" name="study_material" placeholder="max 300 words" rows="6"></textarea>
-        <p class="paste2">Number of flashcards to generate:</p>
-        <textarea class="study-material" name="flashcard_count" placeholder="5" rows="6"></textarea>
-        <label for="append_option">Append to Existing Set?</label>
-        <select id="append_option" name="append_option">
+      <p class="subtitles"> The shorter your text the more flashcards you can get out of it.</p>
+    </div>
+    <div class="get-started-container">
+      <div class="text-material">
+        <form method="POST" action="{{ url_for('create_flashcards') }}">
+          <p class="paste">Enter your study material here:</p>
+          <textarea class="study-material" name="study_material" placeholder="max 300 words" rows="6"></textarea>
+        </div>
+  
+        <div class="text-material2">
+          <p class="paste2">Number of flashcards to generate:</p>
+          <input class="study-material3" name="flashcard_count" placeholder="5" type="number">
+          <br>
+          <label class="append_option" for="append_option">Append to Existing Set?</label>
+          <select class="appending" id="append_option" name="append_option">
             <option value="no">No</option>
             <option value="yes">Yes</option>
-        </select>
-        <p class="paste2">Name of flashcard you want to append to(if want to append):</p>
-        <textarea class="append_name" name="append_name" placeholder="Name of flashcard" rows="6"></textarea>
-
-        
-
-        <button type="submit" id="create-flashcards-button">Create Flashcards</button>
-      </form>
+          </select>
+          <br>
+          <br>
+          <p class="paste2">Name of flashcard you want to append to:</p>
+          <textarea class="study-material1" name="append_name" placeholder="Name of flashcard" rows="6"></textarea>
+  
+          <div>
+            {% if error_message %}
+            <p class="error-message">{{ error_message }}</p>
+            {% endif %}
+            <button type="submit" class="create-flashcard-button">Create Flashcards</button>
+          </div>
+        </form>
+      </div>
     </div>
 
   </section>
@@ -54,3 +65,9 @@
 </body>
 </html>
       
+
+
+
+
+
+ 
