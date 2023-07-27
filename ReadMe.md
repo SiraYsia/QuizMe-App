@@ -30,6 +30,12 @@ To get started with QuizMe, follow the steps below:
 
 Alternatively, you can visit the currently deployed site at http://quizmeapp.pythonanywhere.com/. Please note that the site is still a work in progress, and many more existing features are yet to come.
 
+**Please Note:** The flashcard generation process may take a few moments to format the output correctly. If you encounter empty flashcards after clicking on "Create Flashcards" and specifying the number of flashcards, simply try the process again. Rest assured, this is a normal part of the system's operation, and your flashcards will be generated successfully with a slight delay. We are continuously working to improve the flashcard generation process to make it even more seamless and efficient for our users. !
+
+
+
+
+
 ## Dependencies
 
 - Flask
