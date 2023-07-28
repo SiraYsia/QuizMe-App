@@ -8,6 +8,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'cSuT6KxPuOayBkNnvTWXO0e0J'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///quizme.db'
 
+
 db = SQLAlchemy(app)
 
 # Define the User model representing the user table
@@ -59,6 +60,9 @@ def login():
 
         # Retrieve the user from the database based on the provided email
         user = User.query.filter_by(email=email).first()
+        if not email or not password:
+            error_message = "Please provide both email and password."
+            return render_template('login.html', error_message=error_message)
 
         if user:
             # Compare the hashed password stored in the database with the provided password
@@ -116,7 +120,12 @@ def signup():
 
 @app.route('/create-flashcards') 
 def get_started():
-    return render_template('getstarted.html')
+    user_id = session.get('user_id')
+    user = User.query.get(user_id)
+    flashcard_set_names = [flashcard_set.name for flashcard_set in user.flashcards]
+    
+    return render_template('getstarted.html', flashcard_set_names=flashcard_set_names)
+
 
 @app.route('/createflashcards', methods=['GET', 'POST'])
 def create_flashcards():

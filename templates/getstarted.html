@@ -27,47 +27,85 @@
     <p class="subtitles">For more accurate flashcards that cover at least 99% of the material, please input shorter and more concise texts. 
       You will have the option to append to your existing flashcard if you need to add more texts later.</p>
   
-      <p class="subtitles"> The shorter your text the more flashcards you can get out of it.</p>
-    </div>
-    <div class="get-started-container">
-      <div class="text-material">
-        <form method="POST" action="{{ url_for('create_flashcards') }}">
-          <p class="paste">Enter your study material here:</p>
-          <textarea class="study-material" name="study_material" placeholder="max 300 words" rows="6"></textarea>
-        </div>
-  
-        <div class="text-material2">
-          <p class="paste2">Number of flashcards to generate:</p>
-          <input class="study-material3" name="flashcard_count" placeholder="5" type="number">
-          <br>
-          <label class="append_option" for="append_option">Append to Existing Set?</label>
-          <select class="appending" id="append_option" name="append_option">
-            <option value="no">No</option>
-            <option value="yes">Yes</option>
-          </select>
-          <br>
-          <br>
-          <p class="paste2">Name of flashcard you want to append to:</p>
-          <textarea class="study-material1" name="append_name" placeholder="Name of flashcard" rows="6"></textarea>
-  
-          <div>
-            {% if error_message %}
-            <p class="error-message">{{ error_message }}</p>
-            {% endif %}
-            <button type="submit" class="create-flashcard-button">Create Flashcards</button>
-          </div>
-        </form>
-      </div>
+    <p class="subtitles">The shorter your text the more flashcards you can get out of it.</p>
+    <p class="subtitles"><strong>Please note:</strong> The flashcard generation process may take a few tries to format output correctly. If you encounter empty flashcards after clicking on "Create Flashcards" and specifying the number of flashcards, simply try the process again. We are working on making it even more seamless.</p>
+ 
+ </div>
+  <div class="get-started-container">
+    <div class="text-material">
+      <form method="POST" action="{{ url_for('create_flashcards') }}" onsubmit="return showGeneratingMessage()">
+        <p class="paste">Enter your study material here:</p>
+<textarea class="study-material" name="study_material" 
+placeholder="Enter your study notes here or provide a general topic (e.g., Geology key words or multiples of 9) to generate flashcards." rows="6"></textarea>
     </div>
 
-  </section>
+    <div class="text-material2">
+      <p class="paste2">Number of flashcards to generate:</p>
+      <input class="study-material3" name="flashcard_count" placeholder="5" type="number">
+      <br>
+      <label class="append_option" for="append_option">Append to Existing Set?</label>
+      <select class="appending" id="append_option" name="append_option" onchange="toggleAppendName()">
+        <option value="no" selected>No </option>
+        <option value="yes">Yes</option>
+    </select>
+      <br>
+      <br>
+      <p class="paste2" id="append_name_label" style="display:none;">Name of flashcard you want to append to:</p>
+      <select class="study-material1" name = "append_name" id="append_name" >
+        {% for flashcard_set_name in flashcard_set_names %}
+            <option value="{{ flashcard_set_name }}">{{ flashcard_set_name }}</option>
+        {% endfor %}
+    </select>
+
+    <div id="generating-message" style="display: none;"> Flashcards are being generated. This might take a moment. Please wait.</div>
+
+    <div>
+      {% if error_message %}
+      <p class="error-message" id="error-message">{{ error_message }}</p>
+      {% endif %}
+      <button type="submit" class="create-flashcard-button">Create Flashcards</button>
+    </div>
+      
+    </form>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Call the function when the page loads to set the initial visibility of the text area and label
+    toggleAppendName();
+  });
+
+  function toggleAppendName() {
+    var appendOption = document.getElementById("append_option");
+    var appendNameLabel = document.getElementById("append_name_label");
+    var appendNameTextarea = document.getElementById("append_name");
+
+    if (appendOption.value === "yes") {
+      appendNameLabel.style.display = "block"; // Show the label
+      appendNameTextarea.style.display = "block"; // Show the textarea
+    } else {
+      appendNameTextarea.style.display = "none"; // Hide the textarea
+      appendNameLabel.style.display = "none"; // Hide the label
+    }
+  }
+
+  function showGeneratingMessage() {
+    var generatingMessage = document.getElementById("generating-message");
+    var submitButton = document.querySelector(".create-flashcard-button");
+    var errorMessage = document.getElementById("error-message"); // Get the error message element
+
+    generatingMessage.style.display = "block";
+    submitButton.style.display = "none";
+
+    // Hide the error message
+    errorMessage.style.display = "none";
+
+    // Return true to allow form submission
+    return true;
+  }
+
+</script>
 
 </body>
 </html>
-      
-
-
-
-
-
- 

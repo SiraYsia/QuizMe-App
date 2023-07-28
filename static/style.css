@@ -5,6 +5,11 @@
   padding: 0;
 }
 
+#generating-message {
+  display: none;
+  color: blue;
+  font-weight: bold;
+}
 
 
 body{
