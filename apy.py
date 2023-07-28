@@ -2,7 +2,7 @@ import openai
 import os
 import re
 
-openai.api_key = os.environ['OPENAI_API_KEY']
+openai.api_key = 'INPUT YOUR API KEY HERE'
 
 def generate_flashcards(study_material, flashcard_count):
     conversation = [

@@ -10,9 +10,10 @@ function validateForm() {
   return true;
 }
 
+
 /* Set your own values */
 const CARD_PEN_OFFSET = 10; // Displacement of the cards
-const CARD_SWITCH_RANGE = '130%';
+const CARD_SWITCH_RANGE = '70%';
 
 const CARD_ARRAY = [...document.querySelectorAll('.card-design')];
 /* Do not change this */
@@ -28,80 +29,36 @@ for (let i = 1; i <= l; i++) {
   offset += CARD_PEN_OFFSET;
 }
 
-setCardOffset();
 function setCardOffset() {
   CARD_ARRAY.forEach(function (item, index) {
+    const distance = Math.abs(currentFlashcardIndex - index);
+    const offsetValue = distance <= 1 ? offsetArray[distance] : CARD_SWITCH_RANGE;
     item.style.zIndex = Math.abs(index - COUNT_OF_CARDS);
-    item.style.transform = `translate(${offsetArray[index]}px, ${offsetArray[index]}px)`;
+    item.style.transform = `translate(${offsetValue}px, ${offsetValue}px)`;
   });
 }
 
+
 /******************************************************************/
-window.addEventListener('keydown', function (e) { cardSwitching(e); });
 
-function cardSwitching(e) {
-  let animationObject = {}, previousSibling, scrolling = '';
 
-  /* Return when you scroll during the animation of a card */
-  if (isMoving) return;
-
-  if ((e.keyCode !== 38 && e.keyCode !== 40) && (e.keyCode !== undefined)) return;
-
-  for (let index of CARD_ARRAY) {
-    if ((parseInt(window.getComputedStyle(index).zIndex) === CARD_ARRAY.length) || (parseInt(index.style.zIndex) === CARD_ARRAY.length)) {
-
-      /* Switch the rearmost card */
-      if (e.deltaY < 0 || e.keyCode === 38) { //deltaY < 0 -> scrolling up
-        previousSibling = index.previousElementSibling;
-        if (previousSibling === null) previousSibling = last_element;
-      }
-
-      animationObject = e.deltaY < 0 || e.keyCode === 38 ? previousSibling : e.deltaY > 0 || e.keyCode === 40 ? index : '';
-      animationObject.style.transform = `translate(0px, -${CARD_SWITCH_RANGE})`;
-      scrolling = e.deltaY < 0 || e.keyCode === 38 ? 'up' : e.deltaY > 0 || e.keyCode === 40 ? 'down' : '';
-      isMoving = true;
-      break; // Break the loop after the first match
-    }
-  }
-
-  if (animationObject !== undefined) {
-    // Create a promise that resolves when the transitionend event occurs
-    const transitionEndPromise = new Promise((resolve) => {
-      animationObject.addEventListener('transitionend', () => {
-        resolve();
-      }, { once: true });
-    });
-
-    // Handle the actions after the animation is complete
-    transitionEndPromise.then(() => {
-      if (scrolling === 'down') {
-        animationObject.style.zIndex = 0;
-        animationObject.style.transform = `translate(${offsetArray[COUNT_OF_CARDS]}px, ${offsetArray[COUNT_OF_CARDS]}px)`;
-        offsetSwitch(scrolling);
-      } else if (scrolling === 'up') {
-        offsetSwitch(scrolling);
-        animationObject.style.zIndex = COUNT_OF_CARDS;
-        animationObject.style.transform = `translate(0px, 0px)`;
-      }
-      scrolling = '';
-      isMoving = false; // Reset the isMoving flag after the animation is complete
-    });
-  }
-}
-
-function offsetSwitch(scrolling) {
-  for (let index of CARD_ARRAY) {
-    index.style.zIndex = scrolling === 'down' ? parseInt(index.style.zIndex) + 1 : parseInt(index.style.zIndex) - 1;
-    let offsetIndex = Math.abs(parseInt(index.style.zIndex) - COUNT_OF_CARDS);
-    index.style.transform = `translate(${offsetArray[offsetIndex]}px, ${offsetArray[offsetIndex]}px)`;
-  }
-}
 
 function getRandomColor() {
-  const letters = '0123456789ABCDEF';
+  const minColorValue = 50; // Minimum value for each RGB component
+  const maxColorValue = 205; // Maximum value for each RGB component
   let color = '#';
-  for (let i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
+  const components = ['R', 'G', 'B'];
+
+  // Ensure at least one component is close to 0 or 255
+  let index = Math.floor(Math.random() * components.length);
+  for (let i = 0; i < 3; i++) {
+    const componentValue =
+      i === index
+        ? Math.floor(Math.random() * (maxColorValue - minColorValue + 1))
+        : Math.floor(Math.random() * (maxColorValue - minColorValue + 1) + minColorValue);
+
+    const colorHex = componentValue.toString(16).padStart(2, '0');
+    color += colorHex;
   }
   return color;
 }
@@ -111,6 +68,7 @@ cardArray.forEach(card => {
   const randomColor = getRandomColor();
   card.style.backgroundColor = randomColor;
 });
+
 
 
 function setupFavoriteButtons() {
@@ -123,3 +81,63 @@ function setupFavoriteButtons() {
   });
 }
 setupFavoriteButtons();
+// Add these variables to keep track of the current flashcard index
+// Add these variables to keep track of the current flashcard index and the total number of flashcards
+let currentFlashcardIndex = 0;
+const flashcards = document.querySelectorAll('.card-design');
+const totalFlashcards = flashcards.length;
+
+// Show the first flashcard by default
+flashcards[currentFlashcardIndex].classList.add('active');
+
+// Attach click event listener to the "Previous" button
+const prevButton = document.querySelector('.prev-button');
+prevButton.addEventListener('click', prevFlashcard);
+
+// Attach click event listener to the "Next" button
+const nextButton = document.querySelector('.next-button');
+nextButton.addEventListener('click', nextFlashcard);
+
+// Function to navigate to the previous flashcard
+function prevFlashcard() {
+  // Hide the current flashcard
+  flashcards[currentFlashcardIndex].classList.remove('active');
+
+  // Move to the previous flashcard index
+  currentFlashcardIndex--;
+
+  // Check if we have reached the first flashcard, then reset to the last flashcard
+  if (currentFlashcardIndex < 0) {
+    currentFlashcardIndex = totalFlashcards - 1;
+  }
+
+  // Show the previous flashcard
+  flashcards[currentFlashcardIndex].classList.add('active');
+}
+
+// Function to navigate to the next flashcard
+function nextFlashcard() {
+  // Hide the current flashcard
+  flashcards[currentFlashcardIndex].classList.remove('active');
+
+  // Move to the next flashcard index
+  currentFlashcardIndex++;
+
+  // Check if we have reached the last flashcard, then reset to the first flashcard
+  if (currentFlashcardIndex >= totalFlashcards) {
+    currentFlashcardIndex = 0;
+  }
+
+  // Show the next flashcard
+  flashcards[currentFlashcardIndex].classList.add('active');
+}
+function handleKeyboardEvent(event) {
+  if (event.key === "ArrowRight" || event.key === "ArrowUp") {
+    nextFlashcard();
+  } else if (event.key === "ArrowLeft" || event.key === "ArrowDown") {
+    prevFlashcard();
+  }
+}
+
+// Attach event listener for "keydown" event on the document object
+document.addEventListener('keydown', handleKeyboardEvent);

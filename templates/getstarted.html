@@ -28,7 +28,7 @@
       You will have the option to append to your existing flashcard if you need to add more texts later.</p>
   
     <p class="subtitles">The shorter your text the more flashcards you can get out of it.</p>
-    <p class="subtitles"><strong>Please note:</strong> The flashcard generation process may take a few tries to format output correctly. If you encounter empty flashcards after clicking on "Create Flashcards" and specifying the number of flashcards, simply try the process again. We are working on making it even more seamless.</p>
+    <p class="subtitles3"><strong>Please note:</strong> The flashcard generation process may take a few tries to format output correctly. If you encounter empty flashcards after clicking on "Create Flashcards", simply try the process again. We are working on making it even more seamless.</p>
  
  </div>
   <div class="get-started-container">
@@ -36,7 +36,7 @@
       <form method="POST" action="{{ url_for('create_flashcards') }}" onsubmit="return showGeneratingMessage()">
         <p class="paste">Enter your study material here:</p>
 <textarea class="study-material" name="study_material" 
-placeholder="Enter your study notes here or provide a general topic (e.g., Geology key words or multiples of 9) to generate flashcards." rows="6"></textarea>
+placeholder="Enter your study notes here or provide a general topic (e.g., Geology key words or multiples of 9)" rows="6"></textarea>
     </div>
 
     <div class="text-material2">

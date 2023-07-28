@@ -84,7 +84,11 @@
       margin-right: 10px;
       cursor: pointer;
     }
- 
+
+    .flashcard-list-container{
+      height: 300px; /* Set the desired height for the scrollable area */
+      overflow: auto; /* Enable scrolling for overflowing content */
+    }
 
 
     #edit{
@@ -153,7 +157,7 @@
       <button type="submit" id="login-button">Search</button>
     </form>
 
-  <div class="flashcard-list">
+  <div class="flashcard-list-container">
     <div class="flashcard-list">
       {% if flashcard_sets %}
         {% for flashcard_set in flashcard_sets %}

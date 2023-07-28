@@ -58,9 +58,7 @@
 
     <nav>
       <ul>
-        <li><a class="flashcard-nav" href="{{ url_for('index') }}">Home</a></li>
         <li><a href="{{ url_for('your_flashcards') }}"> Your Flashcards </a></li>
-        <li><a class="flashcard-nav" href="{{ url_for('about_us') }}">About Us</a></li>
       </ul>
     </nav>
   </header>
@@ -76,6 +74,9 @@
 
       </div>
     </div>
+    <button class="prev-button" onclick="prevFlashcard()">Previous</button>
+    <button class="next-button" onclick="nextFlashcard()">Next</button>
+
     {% endfor %}
   </div>
   <script src="{{url_for('static', filename='script.js')}}"></script>

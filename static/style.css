@@ -416,9 +416,9 @@ i {
   width: 700px;
   height: 400px;
   transition: transform .3s ease-out;
-  box-shadow: 0 0 2px 0 #000;
-  border-radius: 8px;
-  border-color: #FAFAFA;
+  box-shadow: 0 0 0px 0 #000;
+  border-radius: 10px;
+  border-color: #380fec;
 
   @media (max-width: 700px) {
     width: 80%;
@@ -428,7 +428,9 @@ i {
     height: 40%;
   }
 }
-
+.card-design:not(.active) {
+  display: none;
+}
 .front,
 .back {
   position: absolute;
@@ -445,7 +447,7 @@ i {
   align-items: center;
   font-size: 2rem;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  color: #FAFAFA;
+  color: #fffafa;
   padding: 50px; /* Add padding to create space between text and edges */
 
 }
@@ -467,7 +469,7 @@ i {
 }
 
 .back {
-  background-color: #333;
+  background-color: #2b2b2b;
   /* Change this color to suit your design */
   transform: rotateY(180deg);
   padding: 50px; /* Add padding to create space between text and edges */
@@ -579,4 +581,40 @@ i {
 }
 .favorite-button.favorited {
   background-color: yellow;
+}
+
+.subtitles3 strong {
+  margin: 10px;
+  font-size: 14px;
+  color: red;
+}
+.subtitles3{
+  margin: 10px;
+  font-size: 14px;
+
+
+}
+
+.next-button {
+  position: fixed;
+  bottom: 20px;
+  right: 100px;
+  padding: 10px;
+  background-color: white;
+  color: rgb(214, 19, 19);
+  border: 2px solid rgb(95, 195, 249);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.prev-button {
+  position: fixed;
+  bottom: 20px;
+  left: 100px;
+  padding: 10px;
+  background-color: white;
+  color: rgb(214, 19, 19);
+  border: 2px solid rgb(95, 195, 249);
+  border-radius: 10px;
+  cursor: pointer;
 }
