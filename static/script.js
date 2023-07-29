@@ -126,7 +126,10 @@ function nextFlashcard() {
   // Check if we have reached the last flashcard, then reset to the first flashcard
   if (currentFlashcardIndex >= totalFlashcards) {
     currentFlashcardIndex = 0;
+    document.querySelector('.end-section').style.display = 'block';
+    return;
   }
+  
 
   // Show the next flashcard
   flashcards[currentFlashcardIndex].classList.add('active');
@@ -141,3 +144,17 @@ function handleKeyboardEvent(event) {
 
 // Attach event listener for "keydown" event on the document object
 document.addEventListener('keydown', handleKeyboardEvent);
+
+function startOver() {
+  currentFlashcardIndex = 0;
+  showFlashcards();
+}
+
+function showFlashcards() {
+  // Hide the "End" section
+  const endSection = document.querySelector('.end-section');
+  endSection.style.display = 'none';
+
+  // Show the current flashcard
+  flashcards[currentFlashcardIndex].classList.add('active');
+}

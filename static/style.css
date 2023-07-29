@@ -490,6 +490,8 @@ i {
   font-size: 14px;
   cursor: pointer;
 }
+
+
 .favorite-button:hover {
   background-color: #FFC500;
 }
@@ -597,11 +599,14 @@ i {
 
 .next-button {
   position: fixed;
+  top: 100px;
+
+  font-weight: bold;
   bottom: 20px;
   right: 100px;
   padding: 10px;
   background-color: white;
-  color: rgb(214, 19, 19);
+  color: rgb(137, 1, 1);
   border: 2px solid rgb(95, 195, 249);
   border-radius: 10px;
   cursor: pointer;
@@ -610,11 +615,27 @@ i {
 .prev-button {
   position: fixed;
   bottom: 20px;
+  font-weight: bold;
+
   left: 100px;
+  top: 100px;
   padding: 10px;
   background-color: white;
-  color: rgb(214, 19, 19);
+  color: rgb(137, 1, 1);
   border: 2px solid rgb(95, 195, 249);
   border-radius: 10px;
+  cursor: pointer;
+}
+/* Your existing CSS styles go here */
+
+
+.end-section button {
+  padding: 10px 20px;
+  background-color: white;
+  color: rgb(137, 1, 1);
+  font-weight: bold;
+  border-radius: 5px;
+  border: 2px solid rgb(95, 195, 249);
+  font-size: 18px;
   cursor: pointer;
 }
