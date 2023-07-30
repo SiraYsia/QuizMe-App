@@ -11,14 +11,68 @@
   font-weight: bold;
 }
 
+.image-container img {
+  max-width: 100%; /* Set the maximum width to 100% of its container */
+  height: auto; /* Maintain the aspect ratio of the image */
+  max-height: 100%; /* Set the maximum height to 100% of its container */
+}
+@media screen and (max-width: 768px) {
 
-body{
-  font-family: popping;
-  background-color: linen;
-  overflow-y: scroll;
-  flex-direction: row;
-  color: black;
+  .study-material {
+    width: 100%;
+    max-width: 300px; /* Adjust the max-width as needed */
+  }
+  .get-started-container {
+    flex-direction: column;
+  }
 
+  .text-material,
+  .text-material2 {
+    width: 100%;
+    margin: 10px;
+  }
+
+  .text-material2 {
+    margin-top: 20px;
+  }
+
+  .get-started-button,
+  .append-button {
+    width: 100%;
+  }
+
+  .study-material,
+  .study-material1,
+  .study-material2,
+  .study-material3 {
+    width: 100%;
+  }
+
+ 
+
+  .paste {
+    font-size: 16px;
+  }
+
+  .paste2 {
+    font-size: 16px;
+  }
+
+  .append_option {
+    font-size: 16px;
+  }
+
+  .appending {
+    width: 100%;
+  }
+
+  .subtitles,
+  .subtitles3,
+  .about-us-text h2,
+  .why-us-text h2,
+  .contact-us-text h2 {
+    font-size: 16px;
+  }
 }
 
 #signup_text{
@@ -249,8 +303,6 @@ align-items: center;
   border: 4px solid #ccc;
   margin: 10px ;
   display: flex;
-  align-items: center;
-  background-color: white;
   border: 2px solid gray;
   color: black;
 }
@@ -448,7 +500,7 @@ i {
   font-size: 2rem;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   color: #fffafa;
-  padding: 50px; /* Add padding to create space between text and edges */
+  padding: 50px; 
 
 }
 
@@ -456,21 +508,20 @@ i {
   color: red;
   font-weight: bold;
   margin-top: 10px;
-  background-color: rgb(231, 231, 231); /* Add this line to set the background color to white */
+  background-color: rgb(231, 231, 231); 
 
 
 }
 
 #create-flashcards-button {
   display: inline-block;
-  width: 150px; /* Set the width of the button to your preference */
-  margin-top: 20px; /* Adjust the margin as needed */
+  width: 150px; 
+  margin-top: 20px;
   margin-left: 60px;
 }
 
 .back {
   background-color: #2b2b2b;
-  /* Change this color to suit your design */
   transform: rotateY(180deg);
   padding: 50px; /* Add padding to create space between text and edges */
 
@@ -481,8 +532,8 @@ i {
 }
 .favorite-button {
   position: absolute;
-  top: 10px; /* Adjust this value to control the vertical position */
-  left: 10px; /* Adjust this value to control the horizontal position */
+  top: 10px; 
+  left: 10px; 
   background-color: #a9a9a7;
   border: none;
   padding: 8px 12px;
@@ -490,7 +541,6 @@ i {
   font-size: 14px;
   cursor: pointer;
 }
-
 
 .favorite-button:hover {
   background-color: #FFC500;
@@ -626,8 +676,6 @@ i {
   border-radius: 10px;
   cursor: pointer;
 }
-/* Your existing CSS styles go here */
-
 
 .end-section button {
   padding: 10px 20px;
@@ -638,4 +686,11 @@ i {
   border: 2px solid rgb(95, 195, 249);
   font-size: 18px;
   cursor: pointer;
+}
+body {
+  font-family: popping;
+  background-color: linen;
+  overflow-y: scroll;
+  flex-direction: row;
+  color: black;
 }
