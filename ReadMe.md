@@ -14,10 +14,8 @@ QuizMe is a full-stack web application that dynamically generates personalized f
 - Dynamically generates personalized flashcards from study materials using GPT-3.5 Turbo.
 - Implements Flask and SQLAlchemy for a robust backend, efficiently managing the SQLite database with bcrypt-based user authentication.
 - Provides a user-friendly frontend with HTML, CSS, and JavaScript for an intuitive and seamless user experience.
-- Supports collaborative features, allowing users to share and collaborate on flashcard sets, making it a useful tool for study groups and classrooms.
-- Enables users to access flashcards through a web browser or mobile app for convenient learning on-the-go.
+- Enables users to access flashcards through a web browser 
 - Tracks user progress to monitor study performance and identify areas for improvement.
-- Supports multi-language capabilities for global accessibility.
 
 ## Getting Started
 
