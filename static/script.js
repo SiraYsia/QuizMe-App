@@ -87,6 +87,17 @@ let currentFlashcardIndex = 0;
 const flashcards = document.querySelectorAll('.card-design');
 const totalFlashcards = flashcards.length;
 
+
+var flashcardNumberPlaceholder = document.querySelector('#flashcard-number');
+var totalFlashcardsPlaceholder = document.querySelector('#total-flashcards');
+var slash = document.querySelector('#slash');
+
+// Update placeholders with actual values
+flashcardNumberPlaceholder.textContent = (currentFlashcardIndex + 1).toString();
+totalFlashcardsPlaceholder.textContent = totalFlashcards.toString();
+slash.textContent = ' / ';
+
+
 // Show the first flashcard by default
 flashcards[currentFlashcardIndex].classList.add('active');
 
@@ -98,6 +109,8 @@ prevButton.addEventListener('click', prevFlashcard);
 const nextButton = document.querySelector('.next-button');
 nextButton.addEventListener('click', nextFlashcard);
 
+
+
 // Function to navigate to the previous flashcard
 function prevFlashcard() {
   // Hide the current flashcard
@@ -108,8 +121,9 @@ function prevFlashcard() {
 
   // Check if we have reached the first flashcard, then reset to the last flashcard
   if (currentFlashcardIndex < 0) {
-    currentFlashcardIndex = totalFlashcards - 1;
+    currentFlashcardIndex = 0;
   }
+  document.querySelector('#flashcard-number').textContent = (currentFlashcardIndex + 1).toString();
 
   // Show the previous flashcard
   flashcards[currentFlashcardIndex].classList.add('active');
@@ -125,11 +139,12 @@ function nextFlashcard() {
 
   // Check if we have reached the last flashcard, then reset to the first flashcard
   if (currentFlashcardIndex >= totalFlashcards) {
-    currentFlashcardIndex = 0;
+    currentFlashcardIndex = totalFlashcards;
     document.querySelector('.end-section').style.display = 'block';
     return;
   }
-  
+  document.querySelector('#flashcard-number').textContent = (currentFlashcardIndex + 1).toString();
+
 
   // Show the next flashcard
   flashcards[currentFlashcardIndex].classList.add('active');
@@ -144,7 +159,6 @@ function handleKeyboardEvent(event) {
 
 // Attach event listener for "keydown" event on the document object
 document.addEventListener('keydown', handleKeyboardEvent);
-
 function startOver() {
   currentFlashcardIndex = 0;
   showFlashcards();
@@ -155,6 +169,15 @@ function showFlashcards() {
   const endSection = document.querySelector('.end-section');
   endSection.style.display = 'none';
 
-  // Show the current flashcard
-  flashcards[currentFlashcardIndex].classList.add('active');
+  // Update the displayed flashcard number
+  document.querySelector('#flashcard-number').textContent = (currentFlashcardIndex + 1).toString();
+
+  // Display the current flashcard
+  for (let i = 0; i < flashcards.length; i++) {
+    if (i === currentFlashcardIndex) {
+      flashcards[i].classList.add('active');
+    } else {
+      flashcards[i].classList.remove('active');
+    }
+  }
 }
