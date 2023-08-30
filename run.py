@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 import bcrypt
 from apy import generate_flashcards
 from flask import session 
+import git
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'cSuT6KxPuOayBkNnvTWXO0e0J'
@@ -334,7 +335,7 @@ def search_flashcard_sets():
 @app.route("/update_server", methods=['POST'])
 def webhook():
     if request.method == 'POST':
-        repo = git.Repo('/home/QuizMeAPP/QuizMe-App')
+        repo = git.Repo('/home/QuizMeApp/QuizMe-App')
         origin = repo.remotes.origin
         origin.pull()
         return 'Updated PythonAnywhere successfully', 200
