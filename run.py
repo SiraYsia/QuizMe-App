@@ -331,5 +331,16 @@ def search_flashcard_sets():
     # Render the your-flashcards.html template with the filtered flashcard sets
     return render_template('your-flashcards.html', flashcard_sets=flashcard_sets)
 
+@app.route("/update_server", methods=['POST'])
+def webhook():
+    if request.method == 'POST':
+        repo = git.Repo('/home/QuizMeAPP/QuizMe-App')
+        origin = repo.remotes.origin
+        origin.pull()
+        return 'Updated PythonAnywhere successfully', 200
+    else:
+        return 'Wrong event type', 400
+    
+
 if __name__ == '__main__':
     app.run(debug=True)
