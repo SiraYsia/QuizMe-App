@@ -21,6 +21,7 @@ def extract_flashcards(response_text):
     return flashcard_map
 
 def generate_flashcards(study_material, flashcard_count):
+    flashcard_map = {}  
     try:
         model = genai.GenerativeModel("gemini-1.5-flash")
 
