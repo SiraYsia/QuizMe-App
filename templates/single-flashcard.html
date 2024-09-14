@@ -1,42 +1,5 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-  <title>QuizMe - Flashcards</title>
-  <link href="https://fonts.googleapis.com/css2?family=League+Spartan&display=swap" rel="stylesheet">
-</head>
-<body>
-  <header>
-    <div class="logo-container">
-      <h1><b>QuizMe</b></h1>
-    </div>
-    <nav>
-      <ul>
-        <li><a href="{{ url_for('index') }}">Log out</a></li>
-        <li><a href="{{ url_for('your_flashcards') }}">Your flashcasrds</a></li>
+<!-- single-flashcard.html  -->
 
-        <li><a href="{{ url_for('about_us') }}">About Us</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <section class="hero">
-    <h1 class="subtitle">Flashcard Set: {{ flashcard_set_name }}</h1>
-    <ul class="flashcard-list">
-      {% for flashcard in flashcards %}
-        <li>
-          <div class="flashcard">
-            <h3 class="flashcard-front">{{ flashcard.front }}</h3>
-            <p class="flashcard-back">{{ flashcard.back }}</p>
-          </div>
-        </li>
-      {% endfor %}
-    </ul>
-  </section>
-</body>
-</html> -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,24 +7,50 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <title> QuizMe - Flashcards </title>
   <link href="https://fonts.googleapis.com/css2?family=League+Spartan&display=swap" rel="stylesheet">
 
 </head>
-
 <body>
   <header>
-    <div class="logo-container">
-      <h2 id = "subtitle"> QuizMe </h2>
-    </div>
+    <a href="{{ url_for('index') }}" class="logo-link">
+      <div class="logo-container">
+        <h1><b>QuizMe</b></h1>
+      </div>
+    </a>
 
     <nav>
-      <ul>
+      <div class="nav-container">
+        <ul class="nav-links">
         <li><a href="{{ url_for('your_flashcards') }}"> Your Flashcards </a></li>
-      </ul>
+        </ul>
+        <div class="menu-toggle" id="menu-toggle">
+          &#9776;
+        </div>
+      </div>
+
+      <div class="dropdown-menu" id="dropdown-menu">
+        <a href="{{ url_for('your_flashcards') }}"> Your Flashcards </a>
+      </div>
     </nav>
   </header>
+
+
+  <div class="instructions-card">
+    <button class="close-button">&times;</button>
+    <h4>💡 Instructions</h4>
+    <p>
+      Use the "Up" or "Right Arrow" keys to navigate to the next flashcard.<br>
+      Use the "Down" or "Left Arrow" keys to navigate to the previous flashcard.<br>
+      Click the star icon on the back of a flashcard to favorite it.
+    </p>  
+  </div>
+
+  <div class="title_of_flashcard_set">
+    <h2>{{ flashcard_set_name }}</h2>
+  </div>
+  
   <div class="wrapper">
     {% for flashcard in flashcards %}
     <div class="card-design">
@@ -74,24 +63,9 @@
 
       </div>
     </div>
-
-    <div class="flashcard-info">
-      <span id="flashcard-number"></span> <span id="slash"> </span> <span id="total-flashcards"> </span>
-    </div>
-
-    <button class="prev-button" onclick="prevFlashcard()">&#9664;</button>
-    <button class="next-button" onclick="nextFlashcard()">&#9654; </button>
-
     {% endfor %}
 
-    <div class="end-section" style="display: none;">
-      <h2>&nbsp;&nbsp;&nbsp;The End</h2>
-      <br>
-      <button onclick="startOver()">Start Over</button>
-    </div>
-  </div>
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
-  <script src="{{url_for('static', filename='script.js')}}"></script>
 </body>
-
 </html>

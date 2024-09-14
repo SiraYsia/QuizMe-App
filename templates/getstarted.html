@@ -1,111 +1,97 @@
+<!-- getstarted.html  -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <title>QuizMe - Get Started</title>
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script> 
+
   <link href="https://fonts.googleapis.com/css2?family=League+Spartan&display=swap" rel="stylesheet">
+
 </head>
 <body>
   <header>
-    <div class="logo-container">
-      <h1><b>QuizMe</b></h1>
-    </div>
+    <a href="{{ url_for('index') }}" class="logo-link">
+      <div class="logo-container">
+        <h1><b>QuizMe</b></h1>
+      </div>
+    </a>
   
     <nav>
-      <ul>
+      <div class="nav-container">
+        <ul class="nav-links">
         <li><a href="{{ url_for('index') }}">Home</a></li>
         <li><a href="{{ url_for('get_started') }}" class="active">Get Started</a></li>
         <li><a href="{{ url_for('your_flashcards') }}"> Your Flashcards </a></li>
         <li><a href="{{ url_for('about_us') }}">About Us</a></li>
       </ul>
-    </nav>
-  </header>
-  <div class="instructions">
-    <h4 class="subtitles">How to get started:</h4>
-    <p class="subtitles">For more accurate flashcards that cover at least 99% of the material, please input shorter and more concise texts. 
-      You will have the option to append to your existing flashcard if you need to add more texts later.</p>
-  
-    <p class="subtitles">The shorter your text the more flashcards you can get out of it.</p>
-    <p class="subtitles3"><strong>Please note:</strong> The flashcard generation process may take a few tries to format output correctly. If you encounter empty flashcards after clicking on "Create Flashcards", simply try the process again. We are working on making it even more seamless.</p>
- 
- </div>
-  <div class="get-started-container">
-    <div class="text-material">
-      <form method="POST" action="{{ url_for('create_flashcards') }}" onsubmit="return showGeneratingMessage()">
-        <p class="paste">Enter your study material here:</p>
-<textarea class="study-material" name="study_material" 
-placeholder="Enter your study notes here or provide a general topic (e.g., Geology key words or multiples of 9)" rows="6"></textarea>
+      <div class="menu-toggle" id="menu-toggle">
+        &#9776;
+      </div>
+    </div>
+    <div class="dropdown-menu" id="dropdown-menu">
+      <a href="{{ url_for('index') }}" </a>
+      <a href="{{ url_for('get_started') }}" class="active"> Get Started </a>
+      <a href="{{ url_for('your_flashcards') }}"> Your Flashcards</a>
+      <a href="{{ url_for('about_us') }}">About Us</a>
+    </div>
+  </nav>
+</header>
+
+    <div class="container_get_started">
+        <div class="instructions">
+            <h4>How to get started:</h4>
+            <p>For more accurate flashcards that cover at least 99% of the material, please input shorter and more concise texts. You will have the option to append to your existing flashcard if you need to add more texts later.</p>
+        </div>
+        <div class="get-started-container">
+            <form method="POST" action="{{ url_for('create_flashcards') }}" onsubmit="return showGeneratingMessage()">
+                <div class="text-material">
+                    <label for="study_material">Enter your study material here:</label>
+                    <textarea id="study_material" name="study_material" placeholder="Enter your study notes here or provide a general topic (e.g., Geology key words or multiples of 9)" rows="6"></textarea>
+                </div>
+                <div class="text-material2">
+                    <label for="flashcard_count">Number of flashcards to generate:</label>
+                    <input type="number" id="flashcard_count" name="flashcard_count" placeholder="5" min="1">
+                    
+                    <br>
+                    <br>
+
+                    <label for="append_option">Append to Existing Set?</label>
+                    <select id="append_option" name="append_option" onchange="toggleAppendName()">
+                        <option value="no" selected>No</option>
+                        <option value="yes">Yes</option>
+                    </select>
+                    
+                    <br>
+                    <br>
+
+                    <div id="append_name_container" style="display:none;">
+                      <label for="append_name" id="append_name_label">Name of flashcard you want to append to:</label>
+                      <select id="append_name" name="append_name">
+                          {% for flashcard_set_name in flashcard_set_names %}
+                          <option value="{{ flashcard_set_name }}">{{ flashcard_set_name }}</option>
+                          {% endfor %}
+                      </select>
+                      <br>
+                  </div>
+                  
+                    
+                    <div id="generating-message" style="display: none;">Flashcards are being generated. This might take a moment. Please wait.</div>
+                    
+                    {% if error_message %}
+                    <p class="error-message" id="error-message">{{ error_message }}</p>
+                    {% endif %}
+                    <br>
+                    
+                    <button type="submit" class="create-flashcard-button">Create Flashcards</button>
+                </div>
+            </form>
+        </div>
     </div>
 
-    <div class="text-material2">
-      <p class="paste2">Number of flashcards to generate:</p>
-      <input class="study-material3" name="flashcard_count" placeholder="5" type="number">
-      <br>
-      <label class="append_option" for="append_option">Append to Existing Set?</label>
-      <select class="appending" id="append_option" name="append_option" onchange="toggleAppendName()">
-        <option value="no" selected>No </option>
-        <option value="yes">Yes</option>
-    </select>
-      <br>
-      <br>
-      <p class="paste2" id="append_name_label" style="display:none;">Name of flashcard you want to append to:</p>
-      <select class="study-material1" name = "append_name" id="append_name" >
-        {% for flashcard_set_name in flashcard_set_names %}
-            <option value="{{ flashcard_set_name }}">{{ flashcard_set_name }}</option>
-        {% endfor %}
-    </select>
-
-    <div id="generating-message" style="display: none;"> Flashcards are being generated. This might take a moment. Please wait.</div>
-
-    <div>
-      {% if error_message %}
-      <p class="error-message" id="error-message">{{ error_message }}</p>
-      {% endif %}
-      <button type="submit" class="create-flashcard-button">Create Flashcards</button>
-    </div>
-      
-    </form>
-  </div>
-</div>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    // Call the function when the page loads to set the initial visibility of the text area and label
-    toggleAppendName();
-  });
-
-  function toggleAppendName() {
-    var appendOption = document.getElementById("append_option");
-    var appendNameLabel = document.getElementById("append_name_label");
-    var appendNameTextarea = document.getElementById("append_name");
-
-    if (appendOption.value === "yes") {
-      appendNameLabel.style.display = "block"; // Show the label
-      appendNameTextarea.style.display = "block"; // Show the textarea
-    } else {
-      appendNameTextarea.style.display = "none"; // Hide the textarea
-      appendNameLabel.style.display = "none"; // Hide the label
-    }
-  }
-
-  function showGeneratingMessage() {
-    var generatingMessage = document.getElementById("generating-message");
-    var submitButton = document.querySelector(".create-flashcard-button");
-    var errorMessage = document.getElementById("error-message"); // Get the error message element
-
-    generatingMessage.style.display = "block";
-    submitButton.style.display = "none";
-
-    // Hide the error message
-    errorMessage.style.display = "none";
-
-    // Return true to allow form submission
-    return true;
-  }
-
-</script>
 
 </body>
 </html>

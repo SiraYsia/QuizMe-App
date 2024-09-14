@@ -1,26 +1,41 @@
+<!-- aboutus.html  -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-  <title >QuizMe</title>
-  <link href="https://fonts.googleapis.com/css2?family=League+Spartan&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <title>QuizMe - Get Started</title>
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script> 
 
+  <link href="https://fonts.googleapis.com/css2?family=League+Spartan&display=swap" rel="stylesheet">
+  
 </head>
 <body>
   <header>
-    <div class="logo-container">
-      <h1><b>QuizMe</b></h1>
-    </div>
+    <a href="{{ url_for('index') }}" class="logo-link">
+      <div class="logo-container">
+        <h1><b>QuizMe</b></h1>
+      </div>
+    </a>
   
     <nav>
-      <ul>
+      <div class="nav-container">
+        <ul class="nav-links">
         <li><a href="{{ url_for('index') }}">Home</a></li>
         <li><a href="{{ url_for('about_us') }}" class="active">About Us</a></li>
       </ul>
-    </nav>
-  </header>
+      <div class="menu-toggle" id="menu-toggle">
+        &#9776;
+      </div>
+    </div>
+    <div class="dropdown-menu" id="dropdown-menu">
+      <a href="{{ url_for('index') }}">Home</a>
+      <a href="{{ url_for('about_us') }}" class="active">About Us</a>
+    </div>
+  </nav>
+</header>
     <div class="about-us-text">
       <h2>About Us:</h2>
       <p>
@@ -44,5 +59,13 @@
         Thank you for being a part of the QuizMe community, and we look forward to helping you succeed in your studies!
       </p>
     </div>
+
+    <script>
+      document.getElementById('menu-toggle').addEventListener('click', function() {
+        document.getElementById('dropdown-menu').classList.toggle('show');
+      });
+    </script>
+
+
 </body>
 </html>

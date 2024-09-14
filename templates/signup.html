@@ -1,61 +1,73 @@
+<!-- signup.html  -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <title>QuizMe - Get Started</title>
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script> 
+
   <link href="https://fonts.googleapis.com/css2?family=League+Spartan&display=swap" rel="stylesheet">
+
 </head>
 <body>
   <header>
-    <div class="logo-container">
-      <h1><b>QuizMe</b></h1>
-    </div>
+    <a href="{{ url_for('index') }}" class="logo-link">
+      <div class="logo-container">
+        <h1><b>QuizMe</b></h1>
+      </div>
+    </a>
   
     <nav>
-      <ul>
+      <div class="nav-container">
+        <ul class="nav-links">
         <li><a href="{{ url_for('index') }}">Home</a></li>
         <li><a href="{{ url_for('login') }}">Login</a></li>
         <li><a href="{{ url_for('signup') }}" class="active">Sign up</a></li>
         <li><a href="{{ url_for('about_us') }}">About Us</a></li>
       </ul>
-    </nav>
-  </header>
-
-  <div class="login-container">
-    <div class="Access">
-      <p>Join the Journey to </p>
-      <p><span class="flashcards-text">Excellence!</span></p>
+      <div class="menu-toggle" id="menu-toggle">
+        &#9776;
+      </div>
     </div>
+    <div class="dropdown-menu" id="dropdown-menu">
+      <a href="{{ url_for('index') }}" >Home</a>
+      <a href="{{ url_for('login') }}">Login</a>
+      <a href="{{ url_for('signup') }}" class="active">Sign up</a>
+      <a href="{{ url_for('about_us') }}">About Us</a>
+    </div>
+  </nav>
+</header>
+
+
+<div class="hero-section">
+  <div class="access">
+    <p>Access Your <span class="flashcards-text">flashcards!</span></p>
+  </div>
+  <div class="login-container">
     <section class="login-page">
       <div class="form-container">
         <form action="{{ url_for('signup') }}" method="POST" onsubmit="return validateForm()">
           <p><span class="log-in-sign-up-text">Log in or Sign up</span></p>
-          <h4>Username/Email:</h4>
-          <input type="text" name="email" id="email" placeholder="Email Address">
-          <h4>Password:</h4>
+          <input type="text" name="email" id="email" placeholder="Email or Username">
           <input type="password" name="password" id="password" placeholder="Password">
-          <h4>Confirm Password:</h4>
-          <input type="password" name="conf_password" id="conf_password" placeholder="Password">
+          <input type="password" name="conf_password" id="conf_password" placeholder="Confirm Password">
 
           {% if error_message %}
           <p class="error-message">{{ error_message }}</p>
           {% endif %}
 
-          <button type="submit" id="login-button">Sign up</button>
+          <button type="submit">Sign up</button>
           <p class="signup-instruction">Already have an account? Log in below:</p>
           
-          <div class="container"> 
-            <a href="{{ url_for('login') }}" id="login_link">Log in</a>
+          <div id="signup-button">
+            <a href="{{ url_for('login') }}">Log in</a>
           </div>
         </form>
       </div>
     </section>
 
-  <footer>
-  </footer>
-
-  <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

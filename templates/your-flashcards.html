@@ -1,204 +1,80 @@
+<!-- your-flashcards.html   -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <title>QuizMe</title>
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script> 
+
   <link href="https://fonts.googleapis.com/css2?family=League+Spartan&display=swap" rel="stylesheet">
-  <style>
-    .flashcard-set-card {
-      background-color: white;
-      border-radius: 5px;
-      margin: 20px;
-      padding: 20px;
-      box-shadow: 0 2px 9px rgba(0, 0, 0, 0.1);
-      display: inline-flex;
-      flex-direction: column;
-      justify-content: space-between;
-      min-width: 20px; 
-      position: relative; 
-      
-      
-    }
 
-    .flashcard-list {
-      display: flex; /* Display the flashcards in a row */
-      flex-wrap: wrap; 
-      justify-content: center; 
-      gap: 20px; 
-      margin: 10px;
-    }
-    .flashcard-set-card h3 {
-      margin-bottom: 10px;
-    }
-
-    .flashcard-set-card a {
-      color: purple;
-      font-size: larger;
-      text-decoration: none;
-    }
-    #subtitle{
-      color: rgb(13, 89, 242);
-      font-size: 20px;
-      margin-bottom: 40px;
-      font-family: Verdana, Geneva, Tahoma, sans-serif;
-
-    }
-
-    #login-button {
-      background-color: purple;
-      color: #fff;
-      border: none;
-      border-radius: 10px;
-      padding: 12px 20px;
-      margin-left: 10px;
-      font-size: 16px; 
-      cursor: pointer;
-    }
-
-    #search {
-      width: 70%;
-      font-size: 18px;
-      padding: 12px;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      transition: border-color 0.3s ease;
-      margin-bottom: 10px;
-    }
-
-    #search:focus {
-      outline: none;
-      border-color: #007BFF;
-      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-    }
-    .flashcard-set-card .delete_button {
-      background-color: white;
-      border: 1px solid red;
-      color: black;
-      width: 60px;
-      height: 30px;
-      border-radius: 5px;
-      padding: 8px 8px;
-      margin-top: 10px;
-      margin-right: 10px;
-      cursor: pointer;
-    }
-
-    .flashcard-list-container{
-      height: 300px; /* Set the desired height for the scrollable area */
-      overflow: auto; /* Enable scrolling for overflowing content */
-    }
-
-
-    #edit{
-      font-size: 15px;
-    }
-    .flashcard-set-card .edit-button {
-      background-color: white;
-      color: black;
-      border: 1px solid rgb(50, 228, 50);
-      border-radius: 5px;
-      width: 60px;
-      height: 30px;
-      padding: 8px 8px;
-      margin-right: 10px;
-      margin-top: 10px;
-      cursor: pointer;
-    }
-      .flashcard-set-card:hover .edit-button {
-    background-color:  rgb(50, 228, 50);
-    color: black;
-  }
-    .flashcard-set-card:hover .delete_button {
-      background-color:  red;
-      color: black;
-    }
-    .side{
-      display: flex;
-    }
-    .side .edit-button{
-      display: flex;
-      align-items: right;
-    }
-    .side .delete_button{
-      display: flex;
-      align-items: left;
-    }
-
-
-    @media screen and (max-width: 600px) {
-      .hero {
-        flex-direction: column;
-      }
-    }
-  </style>
 </head>
 <body>
   <header>
-    <div class="logo-container">
-      <h1><b>QuizMe</b></h1>
-    </div>
+    <a href="{{ url_for('index') }}" class="logo-link">
+      <div class="logo-container">
+        <h1><b>QuizMe</b></h1>
+      </div>
+    </a>
+  
     <nav>
-      <ul>
+    <div class="nav-container">
+      <ul class="nav-links">
         <li><a href="{{ url_for('index') }}">Log out</a></li>
         <li><a href="{{ url_for('get_started') }}">Create Flashcards</a></li>
         <li><a href="{{ url_for('your_flashcards') }}" class="active">Your Flashcards</a></li>
         <li><a href="{{ url_for('about_us') }}">About Us</a></li>
       </ul>
-    </nav>
-  </header>
-  
+      <div class="menu-toggle" id="menu-toggle">
+        &#9776;
+      </div>
+    </div>
 
-  <section class="hero">
-    <h1 class="subtitle">Now displaying All the flashcards in your database</h1>
+    <div class="dropdown-menu" id="dropdown-menu">
+      <a href="{{ url_for('index') }}">Log out</a>
+      <a href="{{ url_for('get_started') }}" </a>
+      <a href="{{ url_for('your_flashcards') }}" class="active"> Your Flashcards </a>
+      <a href="{{ url_for('about_us') }}">About Us</a>
+    </div>
+  </nav>
+</header>
+  
+<br>
+  <section class="hero_your_flashcards">
+    <h1 class="subtitle_your_flashcards">Now displaying All the flashcards in your account</h1>
     <form id="searchForm" action="{{ url_for('search_flashcard_sets') }}" method="POST">
       <input type="text" id = "search" name="search_keywords" placeholder="Eneter keywords">
-      <button type="submit" id="login-button">Search</button>
+      <button type="submit" id="submit-button">Search</button>
     </form>
-
-  <div class="flashcard-list-container">
-    <div class="flashcard-list">
-      {% if flashcard_sets %}
-        {% for flashcard_set in flashcard_sets %}
-          <div class="flashcard-set-card">
-              <a href="{{ url_for('single_flashcard', flashcard_set_name=flashcard_set.name) }}">{{ flashcard_set.name }}</a>
-              <div class="side">
-              <button class="delete_button" onclick="deleteFlashcardSet('{{ flashcard_set.name }}')">Delete</button>
-              <a href="{{ url_for('edit_flashcard_set', flashcard_set_name=flashcard_set.name) }}" class="edit-button"><p id = "edit"> Edit </p></a>
+    </section>
+    
+  <section class="displaying_flashcards_section">
+    <div class="flashcard-list-container">
+      <div class="flashcard-list" style="max-height: 500px; overflow-y: auto;">
+        {% if flashcard_sets %}
+          {% for flashcard_set in flashcard_sets %}
+            <div class="flashcard-set-card">
+                <a href="{{ url_for('single_flashcard', flashcard_set_name=flashcard_set.name) }}">{{ flashcard_set.name }}</a>
+                <div class="side">
+                <button class="delete_button" onclick="deleteFlashcardSet('{{ flashcard_set.name }}')">Delete</button>
+                <a href="{{ url_for('edit_flashcard_set', flashcard_set_name=flashcard_set.name) }}" class="edit-button"><p id="edit"> Edit </p></a>
+              </div>
             </div>
-          </div>
-        {% endfor %}
-      {% else %}
-        <p id = "subtitle">No matching flashcard set was found</p>
-      {% endif %}
+            <p></p>
+          {% endfor %}
+        {% else %}
+          <p id="subtitle_your_flashcards">No matching flashcard set was found</p>
+        {% endif %}
+      </div>
     </div>
-  </div>
-
   </section>
 
-  <script>
-    function deleteFlashcardSet(flashcardSetName) {
-      var deleteConfirmation = confirm("Are you sure you want to delete this flashcard set?");
-      if (deleteConfirmation) {
-        fetch(`/delete_flashcard_set/${flashcardSetName}`, {
-          method: 'DELETE'
-        })
-        .then(response => {
-          if (response.ok) {
-            // If the deletion was successful, reload the page to remove the deleted flashcard set from the list
-            window.location.reload();
-          } else {
-            // If there was an error, display an error message to the user
-            alert('Failed to delete the flashcard set. Please try again later.');
-          }
-        })
-        .catch(error => {
-          console.error('Error:', error);
-          alert('An error occurred. Please try again later.');
-        });
-      }
-    }
-  </script>
+
 </body>
-</html>
+</html> 
+
+<br> <br> <br><br> <br><br> <br>
+
