@@ -7,6 +7,9 @@ from generate_flashcards.send_request import generate_flashcards
 from flask import session 
 import git
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
