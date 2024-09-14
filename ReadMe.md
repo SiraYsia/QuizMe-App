@@ -39,7 +39,7 @@ Alternatively, you can visit the currently deployed site at http://quizmeapp.pyt
 ## Installation
 
 1. Install Python on your system if you haven't already.
-2. Clone this repository to your local machine using `git clone https://github.com/yourusername/QuizMe.git`.
+2. Clone this repository to your local machine using `git clone git@github.com:SiraYsia/QuizMe-App.git`.
 3. Change into the project directory: `cd QuizMe`.
 4. Install the required dependencies using `pip install -r requirements.txt`.
 5. run app.py and follow the prompt 
