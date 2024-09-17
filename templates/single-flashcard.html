@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-  <title> QuizMe - Flashcards </title>
+  <title> QuizMe - Practice </title>
   <link href="https://fonts.googleapis.com/css2?family=League+Spartan&display=swap" rel="stylesheet">
 
 </head>
@@ -65,7 +65,30 @@
     </div>
     {% endfor %}
 
+    <div class="flashcard-navigation">
+      <button id="prev-button" class="nav-button">
+        <span class="button-text">Prev</span>
+        <span class="button-icon">&#9664;</span>
+      </button>
+      <div id="flashcard-count" class="count-bubble">1 / 1</div>
+      <button id="next-button" class="nav-button">
+        <span class="button-text">Next</span>
+        <span class="button-icon">&#9654;</span>
+      </button>
+    </div>
+
   <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
 
 </body>
 </html>
+
+<style>
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+</style>

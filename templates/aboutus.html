@@ -1,71 +1,19 @@
-<!-- aboutus.html  -->
+{% extends "base.html" %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-  <title>QuizMe - Get Started</title>
-  <script src="{{ url_for('static', filename='js/script.js') }}"></script> 
+{% block title %}QuizMe - About Us{% endblock %}
 
-  <link href="https://fonts.googleapis.com/css2?family=League+Spartan&display=swap" rel="stylesheet">
-  
-</head>
-<body>
-  <header>
-    <a href="{{ url_for('index') }}" class="logo-link">
-      <div class="logo-container">
-        <h1><b>QuizMe</b></h1>
-      </div>
-    </a>
-  
-    <nav>
-      <div class="nav-container">
-        <ul class="nav-links">
-        <li><a href="{{ url_for('index') }}">Home</a></li>
-        <li><a href="{{ url_for('about_us') }}" class="active">About Us</a></li>
-      </ul>
-      <div class="menu-toggle" id="menu-toggle">
-        &#9776;
-      </div>
-    </div>
-    <div class="dropdown-menu" id="dropdown-menu">
-      <a href="{{ url_for('index') }}">Home</a>
-      <a href="{{ url_for('about_us') }}" class="active">About Us</a>
-    </div>
-  </nav>
-</header>
-    <div class="about-us-text">
-      <h2>About Us:</h2>
-      <p>
-        At QuizMe, our mission is to revolutionize the way students study by leveraging AI-powered flashcard
-        generation. We understand the challenges of traditional study methods and aim to provide a solution 
-        that enhances efficiency, retention, and personalization.
-      </p>
-    </div>
-    <div class="why-us-text">
-      <h2>Why We Created QuizMe:</h2>
-      <p>
-        The inspiration for QuizMe arose from our own experiences as students facing the challenge of memorizing 
-        vast amounts of information. We realized the power of flashcards in enhancing information retention and
-        wanted to simplify the process of flashcard creation. We aimed to develop a user-friendly program that 
-        leverages AI technology to generate accurate and tailored flashcards, saving time and optimizing the 
-        learning experience.
-      </p>
-    </div>
-    <div class="thank-you-text">
-      <p>
-        Thank you for being a part of the QuizMe community, and we look forward to helping you succeed in your studies!
-      </p>
-    </div>
+{% block content %}
+<div class="about-us-text">
+    <h2>About Us:</h2>
+    <p>At QuizMe, our mission is to revolutionize the way students study by leveraging AI-powered flashcard generation. We understand the challenges of traditional study methods and aim to provide a solution that enhances efficiency, retention, and personalization.</p>
+</div>
 
-    <script>
-      document.getElementById('menu-toggle').addEventListener('click', function() {
-        document.getElementById('dropdown-menu').classList.toggle('show');
-      });
-    </script>
+<div class="why-us-text">
+    <h2>Why We Created QuizMe:</h2>
+    <p>The inspiration for QuizMe arose from our own experiences as students facing the challenge of memorizing vast amounts of information. We realized the power of flashcards in enhancing information retention and wanted to simplify the process of flashcard creation. We aimed to develop a user-friendly program that leverages AI technology to generate accurate and tailored flashcards, saving time and optimizing the learning experience.</p>
+</div>
 
-
-</body>
-</html>
+<div class="thank-you-text">
+    <p>Thank you for being a part of the QuizMe community, and we look forward to helping you succeed in your studies!</p>
+</div>
+{% endblock %}

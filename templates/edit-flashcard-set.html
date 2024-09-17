@@ -1,44 +1,8 @@
-<!-- edit-flashcard-set.html  -->
+{% extends "base.html" %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QuizMe - Edit Flashcard Set</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-  <script src="{{ url_for('static', filename='js/script.js') }}"></script> 
+{% block title %}QuizMe - Edit Your Flashcard{% endblock %}
 
-  <link href="https://fonts.googleapis.com/css2?family=League+Spartan&display=swap" rel="stylesheet">
-
-</head>
-<body>
-  <header>
-    <a href="{{ url_for('index') }}" class="logo-link">
-      <div class="logo-container">
-        <h1><b>QuizMe</b></h1>
-      </div>
-    </a>
-
-    <nav>
-      <div class="nav-container">
-        <ul class="nav-links">
-        <li><a href="{{ url_for('index') }}">Home</a></li>
-        <li><a href="{{ url_for('about_us') }}">About Us</a></li>
-      </ul>
-
-      <div class="menu-toggle" id="menu-toggle">
-        &#9776;
-      </div>
-    </div>
-
-    <div class="dropdown-menu" id="dropdown-menu">
-     <a href="{{ url_for('index') }}">Home</a>
-     <a href="{{ url_for('about_us') }}">About Us</a>
-    </div>
-    </nav>
-  </header>
-  
+{% block content %}
 
   <section class="flashcards">
     <form method="POST" action="{{ url_for('edit_flashcard_set', flashcard_set_name=flashcard_set.name) }}">
@@ -58,5 +22,5 @@
       <button id = "save_fulashcards" type="submit">Save Changes</button>
     </form>
   </section>
-</body>
-</html>
+
+  {% endblock %}

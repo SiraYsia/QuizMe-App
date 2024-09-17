@@ -1,6 +1,6 @@
 '''app.py'''
 
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
 import bcrypt
 from generate_flashcards.send_request import generate_flashcards
@@ -8,6 +8,8 @@ from flask import session
 import git
 import os
 from dotenv import load_dotenv
+from sqlalchemy import func
+from flask import jsonify, json
 
 load_dotenv()
 
@@ -54,6 +56,16 @@ class Flashcard(db.Model):
 with app.app_context():
     db.create_all()
 
+
+@app.context_processor
+def inject_user():
+    user_id = session.get('user_id')
+    if user_id:
+        user = User.query.get(user_id)
+        return dict(logged_in_user=user)
+    return dict(logged_in_user=None)
+
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -61,6 +73,11 @@ def index():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+
+    if 'user_id' in session:
+        return redirect(url_for('your_flashcards'))  # Redirect to your flashcards page if already logged in
+
+
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
@@ -91,6 +108,10 @@ def login():
 @app.route('/signup', methods=['GET', 'POST'])
 @app.route('/signup')
 def signup():
+    if 'user_id' in session:
+        return redirect(url_for('your_flashcards'))  # Redirect to your flashcards page if already logged in
+
+
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
@@ -115,15 +136,23 @@ def signup():
         hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
         # Store the email and hashed password in the database as well as empty flashcards
-        user = User(email=email, password=hashed_password, flashcards ={} )
+        user = User(email=email, password=hashed_password)
         db.session.add(user)
         db.session.commit()
 
         # redirect the user to login page
-        return render_template('login.html', email=email)
+        return render_template('login.html')
 
     # GET request, render the sign-up form
     return render_template('signup.html')
+
+
+
+@app.route('/logout')
+def logout():
+    session.pop('user_id', None)
+    return redirect(url_for('index'))
+
 
 @app.route('/create-flashcards') 
 def get_started():
@@ -136,6 +165,13 @@ def get_started():
 
 @app.route('/createflashcards', methods=['GET', 'POST'])
 def create_flashcards():
+
+    if 'user_id' not in session:
+        return render_template('login.html', error_message="Please log in to create flashcards.")
+
+    user_id = session['user_id']
+    user = User.query.get(user_id)
+    
     study_material = request.form.get('study_material')
     flashcard_count = request.form.get('flashcard_count')
 
@@ -158,7 +194,7 @@ def create_flashcards():
     if append_option == 'no':
         # Convert flashcard map to list of dictionaries for rendering
         flashcards = [{'Front': front, 'Back': back} for front, back in flashcard_map.items()]
-        return render_template('flashcards.html', flashcards=flashcards)
+        return render_template('flashcards.html', flashcards=flashcards, length_of_new_flashcards = 0)
 
     if append_option == "yes":
         # Retrieve the authenticated user
@@ -182,9 +218,25 @@ def create_flashcards():
         new_flashcards = [{'Front': front, 'Back': back} for front, back in flashcard_map.items()]
         appended_flashcards = formatted_flashcards + new_flashcards
 
-        return render_template('flashcards.html', flashcards=appended_flashcards)
+
+        length_of_new_flashcards = len(new_flashcards)
+
+        flashcards_json = jsonify(appended_flashcards).get_data(as_text=True)
+
+        # Redirect to a new route to display appended flashcards
+        return redirect(url_for('display_flashcards', flashcards=flashcards_json, length_of_new_flashcards=length_of_new_flashcards))
 
     return redirect('index.html')
+
+
+
+@app.route('/display_flashcards')
+def display_flashcards():
+    flashcards_json = request.args.get('flashcards') 
+    length_of_new_flashcards = request.args.get('length_of_new_flashcards', default=0, type=int)
+    flashcards = json.loads(flashcards_json)
+
+    return render_template('flashcards.html', flashcards=flashcards, length_of_new_flashcards=length_of_new_flashcards)
 
 
 @app.route('/your-flashcards', methods=['GET', 'POST'])
@@ -274,15 +326,17 @@ def edit_flashcard_set(flashcard_set_name):
         db.session.commit()
 
         # Redirect back to the your-flashcards page after saving changes
-        return redirect('your-flashcards.html')
-
+        return redirect(url_for('your_flashcards'))
     # Render the edit-flashcard-set.html template with the flashcards
     return render_template('edit-flashcard-set.html', flashcard_set=flashcard_set)
 
 
 @app.route('/success')
 def success():
-    return render_template('success.html')
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+    user = User.query.get(session['user_id'])
+    return render_template('success.html', user=user)
 
 app.route('/single-flashcard')
 def single_flashcard():
@@ -300,16 +354,21 @@ def delete_flashcard_set(flashcard_set_name):
     user = User.query.get(user_id)
 
 
+
     # Find the flashcard set with the given name associated with the user
-    flashcard_set = FlashcardSet.query.filter_by(name=flashcard_set_name, user=user).first()
+    flashcard_set_name = flashcard_set_name.strip()
 
+    flashcard_set = FlashcardSet.query.filter(
+        func.replace(FlashcardSet.name, ' ', '') == func.replace(flashcard_set_name, ' ', ''),
+        FlashcardSet.user == user
+    ).first()
 
-
+    user_flashcard_sets = FlashcardSet.query.filter_by(user=user).all()
+    print("is", flashcard_set_name, "in db", user_flashcard_sets)
     if flashcard_set:
-        # Delete the flashcard_set and associated flashcards from the database
         db.session.delete(flashcard_set)
         db.session.commit()
-        return '', 204  # Return an empty response with status code 204 (No Content) to indicate successful deletion
+        return '', 204 
     else:
         return 'Flashcard set not found', 404
     
@@ -335,8 +394,12 @@ def search_flashcard_sets():
 
     # Render the your-flashcards.html template with the filtered flashcard sets
     return render_template('your-flashcards.html', flashcard_sets=flashcard_sets)
-
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
 @app.route("/update_server", methods=['POST'])
+
+
 def webhook():
     if request.method == 'POST':
         repo = git.Repo('/home/QuizMeApp/QuizMe-App')

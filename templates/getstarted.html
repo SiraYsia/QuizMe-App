@@ -1,97 +1,57 @@
-<!-- getstarted.html  -->
+{% extends "base.html" %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-  <title>QuizMe - Get Started</title>
-  <script src="{{ url_for('static', filename='js/script.js') }}"></script> 
+{% block title %}QuizMe - Get Started{% endblock %}
 
-  <link href="https://fonts.googleapis.com/css2?family=League+Spartan&display=swap" rel="stylesheet">
-
-</head>
-<body>
-  <header>
-    <a href="{{ url_for('index') }}" class="logo-link">
-      <div class="logo-container">
-        <h1><b>QuizMe</b></h1>
-      </div>
-    </a>
-  
-    <nav>
-      <div class="nav-container">
-        <ul class="nav-links">
-        <li><a href="{{ url_for('index') }}">Home</a></li>
-        <li><a href="{{ url_for('get_started') }}" class="active">Get Started</a></li>
-        <li><a href="{{ url_for('your_flashcards') }}"> Your Flashcards </a></li>
-        <li><a href="{{ url_for('about_us') }}">About Us</a></li>
-      </ul>
-      <div class="menu-toggle" id="menu-toggle">
-        &#9776;
-      </div>
-    </div>
-    <div class="dropdown-menu" id="dropdown-menu">
-      <a href="{{ url_for('index') }}" </a>
-      <a href="{{ url_for('get_started') }}" class="active"> Get Started </a>
-      <a href="{{ url_for('your_flashcards') }}"> Your Flashcards</a>
-      <a href="{{ url_for('about_us') }}">About Us</a>
-    </div>
-  </nav>
-</header>
+{% block content %}
 
     <div class="container_get_started">
-        <div class="instructions">
-            <h4>How to get started:</h4>
-            <p>For more accurate flashcards that cover at least 99% of the material, please input shorter and more concise texts. You will have the option to append to your existing flashcard if you need to add more texts later.</p>
-        </div>
-        <div class="get-started-container">
-            <form method="POST" action="{{ url_for('create_flashcards') }}" onsubmit="return showGeneratingMessage()">
-                <div class="text-material">
-                    <label for="study_material">Enter your study material here:</label>
-                    <textarea id="study_material" name="study_material" placeholder="Enter your study notes here or provide a general topic (e.g., Geology key words or multiples of 9)" rows="6"></textarea>
-                </div>
-                <div class="text-material2">
-                    <label for="flashcard_count">Number of flashcards to generate:</label>
-                    <input type="number" id="flashcard_count" name="flashcard_count" placeholder="5" min="1">
-                    
-                    <br>
-                    <br>
-
-                    <label for="append_option">Append to Existing Set?</label>
-                    <select id="append_option" name="append_option" onchange="toggleAppendName()">
-                        <option value="no" selected>No</option>
-                        <option value="yes">Yes</option>
-                    </select>
-                    
-                    <br>
-                    <br>
-
-                    <div id="append_name_container" style="display:none;">
-                      <label for="append_name" id="append_name_label">Name of flashcard you want to append to:</label>
-                      <select id="append_name" name="append_name">
-                          {% for flashcard_set_name in flashcard_set_names %}
-                          <option value="{{ flashcard_set_name }}">{{ flashcard_set_name }}</option>
-                          {% endfor %}
-                      </select>
-                      <br>
-                  </div>
+      <div class="instructions">
+          <h4>How to get started:</h4>
+          <p>For more accurate flashcards that cover at least 99% of the material, please input shorter and more concise texts. You will have the option to append to your existing flashcard if you need to add more texts later.</p>
+      </div>
+      <div class="get-started-container">
+          <form method="POST" action="{{ url_for('create_flashcards') }}" onsubmit="return showGeneratingMessage()">
+              <div class="text-material">
+                  <label for="study_material">Enter your study material here:</label>
+                  <textarea id="study_material" name="study_material" placeholder="Enter your study notes here or provide a general topic (e.g., Geology key words or multiples of 9)" rows="6"></textarea>
+              </div>
+              <div class="text-material2">
+                  <label for="flashcard_count">Number of flashcards to generate:</label>
+                  <input type="number" id="flashcard_count" name="flashcard_count" placeholder="5" min="1">
                   
-                    
-                    <div id="generating-message" style="display: none;">Flashcards are being generated. This might take a moment. Please wait.</div>
-                    
-                    {% if error_message %}
-                    <p class="error-message" id="error-message">{{ error_message }}</p>
-                    {% endif %}
+                  <br>
+                  <br>
+
+                  <label for="append_option">Append to Existing Set?</label>
+                  <select id="append_option" name="append_option" onchange="toggleAppendName()">
+                      <option value="no" selected>No</option>
+                      <option value="yes">Yes</option>
+                  </select>
+                  
+                  <br>
+                  <br>
+
+                  <div id="append_name_container" style="display:none;">
+                    <label for="append_name" id="append_name_label">Name of flashcard you want to append to:</label>
+                    <select id="append_name" name="append_name">
+                        {% for flashcard_set_name in flashcard_set_names %}
+                        <option value="{{ flashcard_set_name }}">{{ flashcard_set_name }}</option>
+                        {% endfor %}
+                    </select>
                     <br>
-                    
-                    <button type="submit" class="create-flashcard-button">Create Flashcards</button>
                 </div>
-            </form>
-        </div>
-    </div>
-
-
-</body>
-</html>
+                
+                  
+                  <div id="generating-message" style="display: none;">Flashcards are being generated. This might take a moment. Please wait.</div>
+                  
+                  {% if error_message %}
+                  <p class="error-message" id="error-message">{{ error_message }}</p>
+                  {% endif %}
+                  <br>
+                  
+                  <button type="submit" class="create-flashcard-button">Create Flashcards</button>
+              </div>
+          </form>
+      </div>
+  </div>
+{% endblock %}

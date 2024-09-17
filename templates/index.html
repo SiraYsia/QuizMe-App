@@ -1,58 +1,23 @@
 <!-- index.html   -->
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-  <title>QuizMe</title>
-  <script src="{{ url_for('static', filename='js/script.js') }}"></script> 
+{% extends "base.html" %}
 
-  <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-</head>
-<body>
-  <header>
-    <a href="{{ url_for('index') }}" class="logo-link">
-        <div class="logo-container">
-          <h1><b>QuizMe</b></h1>
-        </div>
-      </a>
-      
-    
-    <nav>
-      <div class="nav-container">
-        <ul class="nav-links">
-          <li><a href="{{ url_for('index') }}" class="active">Home</a></li>
-          <li><a href="{{ url_for('login') }}">Login</a></li>
-          <li><a href="{{ url_for('signup') }}">Sign up</a></li>
-        </ul>
-        <div class="menu-toggle" id="menu-toggle">
-          &#9776;
-        </div>
-      </div>
-      <div class="dropdown-menu" id="dropdown-menu">
-        <a href="{{ url_for('index') }}" class="active">Home</a>
-        <a href="{{ url_for('login') }}">Login</a>
-        <a href="{{ url_for('signup') }}">Sign up</a>
-      </div>
-    </nav>
-  </header>
+{% block title %}QuizMe{% endblock %}
 
-  <div class="hero-section">
-    <div class="image-container">
-      <img class="img" src="/static/img/woman_studying.jpg" alt="A Woman Studying">
-    </div>
-    <div class="text-container">
-      <section class="hero">
-        <h1 class="heading">Level Up Your Learning!</h1>
-        <p class="subtitle">Create unlimited Flashcards with just one click.</p>
-        <div class="container">
-          <a href="{{ url_for('login') }}" class="get-started-button">Get Started</a>
-        </div>
-      </section>
-    </div>
+{% block content %}
+<div class="hero-section">
+  <div class="image-container">
+    <img class="img" src="/static/img/woman_studying.jpg" alt="A Woman Studying">
   </div>
+  <div class="text-container">
+    <section class="hero">
+      <h1 class="heading">Level Up Your Learning!</h1>
+      <p class="subtitle">Create unlimited Flashcards with just one click.</p>
+      <div class="container">
+        <a href="{{ url_for('login') }}" class="get-started-button">Get Started</a>
+      </div>
+    </section>
+  </div>
+</div>
+{% endblock %}
 
-</body>
-</html>

@@ -30,7 +30,7 @@ def generate_flashcards(study_material, flashcard_count):
                    f'of the following topic or text: {study_material}. '
                    'Provide the flashcards in the following format: '
                    'Front: <question>? Back: <answer>. Each flashcard should be separated by "Front:" keyword.'
-                   'Please do not style the conent, do not bold or underline anything.' )
+                   'Please do not style the conent, do not bold or underline anything. Do not use **' )
         # Generate content
         response = model.generate_content(content)
         print(response.text)

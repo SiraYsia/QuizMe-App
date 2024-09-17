@@ -1,67 +1,37 @@
-<!-- flashcards.html -->
+{% extends "base.html" %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-  <title>QuizMe</title>
-  <script src="{{ url_for('static', filename='js/script.js') }}"></script> 
+{% block title %}QuizMe - Save your generated flashcards{% endblock %}
 
-  <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-  
-</head>
-<body>
-  <header>
-    <a href="{{ url_for('index') }}" class="logo-link">
-        <div class="logo-container">
-          <h1><b>QuizMe</b></h1>
-        </div>
-      </a>
-      
-    
-    <nav>
-      <div class="nav-container">
-        <ul class="nav-links">
-          <li><a href="{{ url_for('index') }}">Home</a></li>
-          <li><a href="{{ url_for('get_started') }}">Create Flashcards</a></li>
-          <li><a href="{{ url_for('about_us') }}">About Us</a></li>
-        </ul>
-        <div class="menu-toggle" id="menu-toggle">
-          &#9776;
-        </div>
-      </div>
-      <div class="dropdown-menu" id="dropdown-menu">
-        <a href="{{ url_for('index') }}">Home</a>
-        <a href="{{ url_for('get_started') }}">Create Flashcards</a>
-        <a href="{{ url_for('about_us') }}">About Us</a>
-      </div>
-    </nav>
-  </header>
-
+{% block content %}
 
   <section class="flashcards">
     <form method="POST" action="{{ url_for('your_flashcards') }}">
       <h2>Flashcards</h2>
+      {% if flashcards|length == 0 %}
+        <div class="error-message">
+          <p>Sorry, we couldn't generate flashcards for you.
+            <a href="{{ url_for('get_started') }}">Click here to try again</a>.</p>
+        </div>
+      {% else %}
       <table>
         <tr>
           <th>Question</th>
           <th>Answer</th>
         </tr>
         {% for flashcard in flashcards %}
-        <tr>
+        <tr class="{% if loop.index > (flashcards|length - length_of_new_flashcards) %}new-flashcard{% endif %}">
           <td><input type="text" name="question[]" value="{{ flashcard['Front'] }}"></td>
           <td><input type="text" name="answer[]" value="{{ flashcard['Back'] }}"></td>
         </tr>
         {% endfor %}
       </table>
+      {% endif %}
       <label for="flashcard_set_name">Flashcard Set Name:</label>
       <input type="text" id="flashcard_set_name" name="flashcard_set_name" required>
       <br>
       <br>
-      <button id = "save_fulashcards" type="submit">Save Flashcards</button>
+      <button id="save_fulashcards" type="submit">Save Flashcards</button>
     </form>
   </section>
-</body>
-</html>
+
+{% endblock %}

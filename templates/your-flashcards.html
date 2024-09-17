@@ -1,80 +1,39 @@
 <!-- your-flashcards.html   -->
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-  <title>QuizMe</title>
-  <script src="{{ url_for('static', filename='js/script.js') }}"></script> 
+{% extends "base.html" %}
 
-  <link href="https://fonts.googleapis.com/css2?family=League+Spartan&display=swap" rel="stylesheet">
+{% block title %}QuizMe - Your Flashcards{% endblock %}
 
-</head>
-<body>
-  <header>
-    <a href="{{ url_for('index') }}" class="logo-link">
-      <div class="logo-container">
-        <h1><b>QuizMe</b></h1>
-      </div>
-    </a>
-  
-    <nav>
-    <div class="nav-container">
-      <ul class="nav-links">
-        <li><a href="{{ url_for('index') }}">Log out</a></li>
-        <li><a href="{{ url_for('get_started') }}">Create Flashcards</a></li>
-        <li><a href="{{ url_for('your_flashcards') }}" class="active">Your Flashcards</a></li>
-        <li><a href="{{ url_for('about_us') }}">About Us</a></li>
-      </ul>
-      <div class="menu-toggle" id="menu-toggle">
-        &#9776;
-      </div>
-    </div>
-
-    <div class="dropdown-menu" id="dropdown-menu">
-      <a href="{{ url_for('index') }}">Log out</a>
-      <a href="{{ url_for('get_started') }}" </a>
-      <a href="{{ url_for('your_flashcards') }}" class="active"> Your Flashcards </a>
-      <a href="{{ url_for('about_us') }}">About Us</a>
-    </div>
-  </nav>
-</header>
-  
-<br>
-  <section class="hero_your_flashcards">
+{% block content %}
+<section class="hero_your_flashcards">
     <h1 class="subtitle_your_flashcards">Now displaying All the flashcards in your account</h1>
     <form id="searchForm" action="{{ url_for('search_flashcard_sets') }}" method="POST">
-      <input type="text" id = "search" name="search_keywords" placeholder="Eneter keywords">
-      <button type="submit" id="submit-button">Search</button>
+        <input type="text" id="search" name="search_keywords" placeholder="Enter keywords">
+        <button type="submit" id="submit-button">Search</button>
     </form>
-    </section>
-    
-  <section class="displaying_flashcards_section">
+</section>
+
+<section class="displaying_flashcards_section">
     <div class="flashcard-list-container">
-      <div class="flashcard-list" style="max-height: 500px; overflow-y: auto;">
-        {% if flashcard_sets %}
-          {% for flashcard_set in flashcard_sets %}
-            <div class="flashcard-set-card">
-                <a href="{{ url_for('single_flashcard', flashcard_set_name=flashcard_set.name) }}">{{ flashcard_set.name }}</a>
-                <div class="side">
-                <button class="delete_button" onclick="deleteFlashcardSet('{{ flashcard_set.name }}')">Delete</button>
-                <a href="{{ url_for('edit_flashcard_set', flashcard_set_name=flashcard_set.name) }}" class="edit-button"><p id="edit"> Edit </p></a>
-              </div>
-            </div>
-            <p></p>
-          {% endfor %}
-        {% else %}
-          <p id="subtitle_your_flashcards">No matching flashcard set was found</p>
-        {% endif %}
-      </div>
+        <div class="flashcard-list" style="max-height: 500px; overflow-y: auto;">
+            {% if flashcard_sets %}
+                {% for flashcard_set in flashcard_sets %}
+                    <div class="flashcard-set-card">
+                        <a href="{{ url_for('single_flashcard', flashcard_set_name=flashcard_set.name) }}">{{ flashcard_set.name }}</a>
+                        <div class="side">
+                            <button class="delete_button" onclick="deleteFlashcardSet('{{ flashcard_set.name }}')">Delete</button>
+                            <a href="{{ url_for('edit_flashcard_set', flashcard_set_name=flashcard_set.name) }}" class="edit-button"><p id="edit"> Edit </p></a>
+                        </div>
+                    </div>
+                    <p></p>
+                {% endfor %}
+            {% else %}
+                <p id="subtitle_your_flashcards">No matching flashcard set was found</p>
+            {% endif %}
+        </div>
     </div>
-  </section>
 
-
-</body>
-</html> 
-
-<br> <br> <br><br> <br><br> <br>
-
+</section>
+<br>
+<br>
+{% endblock %}

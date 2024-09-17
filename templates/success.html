@@ -1,59 +1,19 @@
-<!-- success.html  -->
+{% extends "base.html" %}
 
-<!DOCTYPE html>
-  <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <title>QuizMe - Get Started</title>
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script> 
+{% block title %}QuizMe - Success{% endblock %}
 
-    <link href="https://fonts.googleapis.com/css2?family=League+Spartan&display=swap" rel="stylesheet">
-
-  </head>
-  <body>
-    <header>
-      <a href="{{ url_for('index') }}" class="logo-link">
-        <div class="logo-container">
-          <h1><b>QuizMe</b></h1>
-        </div>
-      </a>
-    
-      <nav>
-        <div class="nav-container">
-          <ul class="nav-links">
-            <li><a href="{{ url_for('index') }}">Log out</a></li>
-            <li><a href="{{ url_for('success') }}" class="active">Success</a></li>
-            <li><a href="{{ url_for('about_us') }}">About Us</a></li>
-        </ul>
-        <div class="menu-toggle" id="menu-toggle">
-          &#9776;
-        </div>
-      </div>
-      <div class="dropdown-menu" id="dropdown-menu">
-        <a href="{{ url_for('index') }}">Log out</a>
-        <a href="{{ url_for('success') }}" class="active">Success</a>
-        <a href="{{ url_for('about_us') }}">About Us</a>
-      </div>
-    </nav>
-  </header>
-
-  
-    <div class="success">
-      <div class="card">
+{% block content %}
+<div class="success">
+    <div class="card">
         <div class="sub">
-          <i class="checkmark">✓</i>
+            <i class="checkmark">✓</i>
         </div>
-          <h1 class="success-container">Success</h1> 
-          <p class="success-message"> Hi <b> {{ user.email.split('@')[0] }}! </b> You are logged in. Start Creating Flashcards.</p>
-          <div class="create"> 
+        <h1 class="success-container">Success</h1> 
+        <p class="success-message"> Hi <b> {{ logged_in_user.email.split('@')[0] }}! </b> You are logged in. Start Creating Flashcards.</p>
+        <div class="create"> 
             <a href="{{ url_for('get_started') }}" class="get-started-button">Create Flashcards</a>
-            <a href="{{ url_for('your_flashcards') }}" class="get-started-button">Your Flashcards</a></li>
-            </div>
+            <a href="{{ url_for('your_flashcards') }}" class="get-started-button">Your Flashcards</a>
         </div>
     </div>
-  </div>
-    
-</body>
-</html>
+</div>
+{% endblock %}

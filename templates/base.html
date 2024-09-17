@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <title>{% block title %} {% endblock %}</title>
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script> 
+  <link href="https://fonts.googleapis.com/css2?family=League+Spartan&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
+
+</head>
+<body>
+  <header>
+    <a href="{{ url_for('index') }}" class="logo-link">
+      <div class="logo-container">
+        <h1><b>QuizMe</b></h1>
+      </div>
+    </a>
+
+    <nav>
+      <div class="nav-container">
+        {% if logged_in_user %}
+          <ul class="nav-links">
+            <li class="profile-dropdown">
+              <a href="{{ url_for('success') }}" class="profile-link">
+                <img src="{{ url_for('static', filename='img/profile_cat.jpg') }}" alt="Profile" class="profile-pic">
+              </a>
+              <div class="dropdown-content">
+                <a href="{{ url_for('your_flashcards') }}">Your Flashcards</a>
+                <a href="{{ url_for('get_started') }}">Create Flashcards</a>
+                <a href="{{ url_for('about_us') }}">About Us</a>
+                <a href="{{ url_for('logout') }}">Logout</a>
+              </div>
+            </li>
+          </ul>
+        {% else %}
+          <ul class="nav-links">
+            
+            <li><a href="{{ url_for('index') }}" {% if request.endpoint == 'index' %}class="active"{% endif %}>Get Started</a></li>
+            <li><a href="{{ url_for('login') }}" {% if request.endpoint == 'login' %}class="active"{% endif %}>Login</a></li>
+            <li><a href="{{ url_for('signup') }}" {% if request.endpoint == 'signup' %}class="active"{% endif %}>Sign up</a></li>
+            <li><a href="{{ url_for('about_us') }}" {% if request.endpoint == 'about_us' %}class="active"{% endif %}>About Us</a></li>
+          </ul>
+        {% endif %}
+        <div class="menu-toggle" id="menu-toggle">
+          &#9776;
+        </div>
+      </div>
+      <div class="dropdown-menu" id="dropdown-menu">
+        {% if logged_in_user %}
+          <div class="profile-link">
+            <img src="{{ url_for('static', filename='img/profile_cat.jpg') }}" alt="Profile" class="profile-pic-mobile">
+          </div>
+          <a href="{{ url_for('your_flashcards') }}" {% if request.endpoint == 'your_flashcards' %}class="active"{% endif %}>Your Flashcards</a>
+          <a href="{{ url_for('get_started') }}" {% if request.endpoint == 'get_started' %}class="active"{% endif %}>Create Flashcards</a>
+          <a href="{{ url_for('about_us') }}" {% if request.endpoint == 'about_us' %}class="active"{% endif %}>About Us</a>
+          <a href="{{ url_for('logout') }}">Logout</a>
+        {% else %}
+          <a href="{{ url_for('index') }}" {% if request.endpoint == 'index' %}class="active"{% endif %}>Get Started</a>
+          <a href="{{ url_for('login') }}" {% if request.endpoint == 'login' %}class="active"{% endif %}>Login</a>
+          <a href="{{ url_for('signup') }}" {% if request.endpoint == 'signup' %}class="active"{% endif %}>Sign up</a>
+          <a href="{{ url_for('about_us') }}" {% if request.endpoint == 'about_us' %}class="active"{% endif %}>About Us</a>
+        {% endif %}
+      </div>      
+    </nav>
+  </header>
+
+  {% block content %}
+  {% endblock %}
+
+  <footer class="app-footer">
+    <p>&copy; 2023 QuizMe. All rights reserved.</p>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  <script>
+    document.getElementById('menu-toggle').addEventListener('click', function() {
+    document.getElementById('dropdown-menu').classList.toggle('show');
+    });
+  </script>
+</body>
+</html>
