@@ -13,25 +13,40 @@
             <a href="{{ url_for('get_started') }}">Click here to try again</a>.</p>
         </div>
       {% else %}
-      <table>
+      <table id="flashcard-table">
         <tr>
           <th>Question</th>
           <th>Answer</th>
+          <th>Action</th>
+
         </tr>
         {% for flashcard in flashcards %}
         <tr class="{% if loop.index > (flashcards|length - length_of_new_flashcards) %}new-flashcard{% endif %}">
           <td><input type="text" name="question[]" value="{{ flashcard['Front'] }}"></td>
           <td><input type="text" name="answer[]" value="{{ flashcard['Back'] }}"></td>
+          <td>
+            <button type="button" class="delete-flashcard-button" onclick="deleteFlashcard(this)">Delete</button>
+          </td>
         </tr>
         {% endfor %}
       </table>
       {% endif %}
       <label for="flashcard_set_name">Flashcard Set Name:</label>
+
       <input type="text" id="flashcard_set_name" name="flashcard_set_name" required>
+      <div class="button-container">
+      <button type="button" id="add-flashcard" class="add-flashcard-button" onclick="addFlashcard()">+</button>      <br><br>
+      </div>
       <br>
       <br>
-      <button id="save_fulashcards" type="submit">Save Flashcards</button>
+      <button id="save_fulashcards" type="submit" disabled>Save Changes</button>
     </form>
   </section>
+
+  <script>
+    // Initial check when the page loads
+    document.addEventListener('DOMContentLoaded', updateSaveButton);
+</script>
+
 
 {% endblock %}

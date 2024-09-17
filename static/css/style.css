@@ -835,6 +835,53 @@ input[type="text"]:focus {
   z-index: 1000; 
 }
 
+.button-container {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.add-flashcard-button {
+  width: 50px; 
+  height: 50px; 
+  border-radius: 50%; 
+  background-color: lightpink; 
+  color: white; 
+  font-size: 24px;
+  border: none; 
+  cursor: pointer; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+  transition: background-color 0.3s; 
+}
+
+.add-flashcard-button:hover {
+  background-color: #ffb3d9; 
+}
+
+
+.delete-flashcard-button {
+  background-color: #ff4d4d; 
+  color: white; 
+  border: none; 
+  border-radius: 5px; 
+  padding: 5px 10px; 
+  cursor: pointer; 
+  transition: background-color 0.3s; 
+}
+
+.delete-flashcard-button:hover {
+  background-color: #ff1a1a; 
+}
+
+
+
+#save_fulashcards:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: grey;
+}
+
+
+/*single-flashcard.html*/
 .close-button {
   position: absolute;
   top: 10px;
@@ -910,7 +957,6 @@ input[type="text"]:focus {
   align-items: center;
   margin-top: 20px; 
   margin-bottom: 20px; 
-
 }
 
 .front, .back {
@@ -927,26 +973,23 @@ input[type="text"]:focus {
   font-size: 24px;
   transition: transform 0.6s ease;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  padding: 20px;
+  box-sizing: border-box;
+  overflow: auto;
 }
 
 .front {
-  background-color: #ffffff;
-  border: 2px solid #e0e0e0;
-  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   background-color: #fdf8e5;
-  padding: 0 20px;  
-
+  border: 2px solid #e0e0e0;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  
 }
 
 .back {
   background-color: #effde9;
   color: #d32121;
-  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  font-size: 2em;
-  border: 2px solid #e0e0e0;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   transform: rotateY(180deg);
-  padding: 0 20px;  
-
 }
 
 .card-design.flipped .front {
@@ -966,6 +1009,7 @@ input[type="text"]:focus {
   position: absolute;
   bottom: 15px;
   right: 15px;
+  z-index: 10;
 }
 
 .favorite-button.favorited {
@@ -983,31 +1027,55 @@ input[type="text"]:focus {
 }
 
 @media (max-width: 480px) {
-  
   .card-design {
     max-width: 280px;
     height: 200px;
   }
 
   .front, .back {
-    font-size: 18px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 
-  
+  .back {
+    font-size: 1.5em;
+  }
+
   .favorite-button {
     font-size: 20px;
     bottom: 10px;
     right: 10px;
   }
 
-  @media (max-width: 480px) {
-    .instructions-card {
-      width: 95%; 
-      bottom: 10px; 
-      right: 10px; 
-      font-size: 13px; 
-    }
-}}
+  .instructions-card {
+    width: 95%; 
+    bottom: 10px; 
+    right: 10px; 
+    font-size: 13px; 
+    position: fixed;
+    z-index: 1000;
+  }
+}
+
+@media (max-width: 320px) {
+  .card-design {
+    max-width: 240px;
+    height: 180px;
+  }
+
+  .front, .back {
+    font-size: 14px;
+  }
+
+  .back {
+    font-size: 1.3em;
+  }
+}
 
 .flashcard-navigation {
   display: flex;

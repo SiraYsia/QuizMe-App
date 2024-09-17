@@ -194,7 +194,9 @@ def create_flashcards():
     if append_option == 'no':
         # Convert flashcard map to list of dictionaries for rendering
         flashcards = [{'Front': front, 'Back': back} for front, back in flashcard_map.items()]
-        return render_template('flashcards.html', flashcards=flashcards, length_of_new_flashcards = 0)
+        flashcards_json = jsonify(flashcards).get_data(as_text=True)
+
+        return redirect(url_for('display_flashcards', flashcards=flashcards_json, length_of_new_flashcards=0))
 
     if append_option == "yes":
         # Retrieve the authenticated user
@@ -265,8 +267,9 @@ def your_flashcards():
             db.session.add(flashcard)
         db.session.commit()
 
-    # Retrieve all flashcard sets associated with the user
-    flashcard_sets = user.flashcards
+    # Retrieve all flashcard sets associated with the user (reverse the order so newly created ones show up first)
+    flashcard_sets = user.flashcards[::-1]
+    
 
     # Render the your-flashcards.html template with the flashcard sets
     return render_template('your-flashcards.html', flashcard_sets=flashcard_sets)
@@ -294,41 +297,45 @@ def single_flashcard(flashcard_set_name):
         # Handle the case when the flashcard set is not found
         return "Flashcard set not found"
     
-
-# Add a new route for editing a flashcard set
 @app.route('/edit_flashcard_set/<flashcard_set_name>', methods=['GET', 'POST'])
 def edit_flashcard_set(flashcard_set_name):
     if 'user_id' not in session:
-        # User is not authenticated, redirect them to the login page or show an error message
         return render_template('login.html', error_message="Please log in to access your flashcards.")
 
     user_id = session['user_id']
     user = User.query.get(user_id)
 
     flashcard_set = FlashcardSet.query.filter_by(name=flashcard_set_name, user=user).first()
-    print(flashcard_set)
     
     if not flashcard_set:
-        # Handle the case when the flashcard set is not found
         return render_template('your-flashcards.html', error_message="Flashcard set not found")
+
     if request.method == 'POST':
-        # Get the edited flashcard data from the form
         questions = request.form.getlist('question[]')
         answers = request.form.getlist('answer[]')
 
-        # Update the flashcards with the edited data
-        flashcards = flashcard_set.flashcards
-        for flashcard, question, answer in zip(flashcards, questions, answers):
-            flashcard.front = question
-            flashcard.back = answer
+        # Remove all existing flashcards
+        for flashcard in flashcard_set.flashcards:
+            db.session.delete(flashcard)
 
-        # Commit the changes to the database
+        # Add new and updated flashcards
+        for question, answer in zip(questions, answers):
+            if question.strip() and answer.strip():  # Only add non-empty flashcards
+                new_flashcard = Flashcard(front=question, back=answer, flashcard_set=flashcard_set)
+                db.session.add(new_flashcard)
+
+        # iff no flashcards remain, delete the entire flashcard set
+        if not questions or all(not q.strip() for q in questions):
+            db.session.delete(flashcard_set)
+            db.session.commit()
+            return redirect(url_for('your_flashcards'))
+
         db.session.commit()
-
-        # Redirect back to the your-flashcards page after saving changes
         return redirect(url_for('your_flashcards'))
-    # Render the edit-flashcard-set.html template with the flashcards
+
     return render_template('edit-flashcard-set.html', flashcard_set=flashcard_set)
+
+
 
 
 @app.route('/success')

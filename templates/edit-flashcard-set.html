@@ -3,24 +3,36 @@
 {% block title %}QuizMe - Edit Your Flashcard{% endblock %}
 
 {% block content %}
-
   <section class="flashcards">
     <form method="POST" action="{{ url_for('edit_flashcard_set', flashcard_set_name=flashcard_set.name) }}">
       <h2>Editing Flashcard Set - {{ flashcard_set.name }}</h2>
-      <table>
+      <table id="flashcard-table">
         <tr>
           <th>Question</th>
           <th>Answer</th>
+          <th>Action</th>
         </tr>
         {% for flashcard in flashcard_set.flashcards %}
           <tr>
             <td><input type="text" name="question[]" value="{{ flashcard.front }}"></td>
             <td><input type="text" name="answer[]" value="{{ flashcard.back }}"></td>
+            <td>
+              <button type="button" class="delete-flashcard-button" onclick="deleteFlashcard(this)">Delete</button>
+            </td>
           </tr>
         {% endfor %}
       </table>
-      <button id = "save_fulashcards" type="submit">Save Changes</button>
+      <div class="button-container">
+        <button type="button" id="add-flashcard" class="add-flashcard-button" onclick="addFlashcard()">+</button>
+      </div>
+      
+      <button id="save_fulashcards" type="submit" disabled>Save Changes</button>
     </form>
   </section>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', updateSaveButton);
+  </script>
 
-  {% endblock %}
+{% endblock %}
+

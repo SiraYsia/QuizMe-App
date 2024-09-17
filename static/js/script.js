@@ -124,3 +124,32 @@ function showGeneratingMessage() {
 document.getElementById('menu-toggle').addEventListener('click', function() {
   document.getElementById('dropdown-menu').classList.toggle('show');
 });
+
+
+
+function updateSaveButton() {
+  const flashcardRows = document.querySelectorAll('#flashcard-table tr:not(:first-child)');
+  const saveButton = document.getElementById('save_fulashcards');
+  saveButton.disabled = flashcardRows.length === 0;
+}
+
+/* Delete and edit flashcard On edit mode */
+
+function deleteFlashcard(button) {
+  // Remove the row from the table
+  const row = button.closest('tr');
+  row.remove();
+  updateSaveButton()
+}
+
+function addFlashcard() {
+  const table = document.getElementById('flashcard-table');
+  const newRow = table.insertRow(-1);
+  newRow.innerHTML = `
+    <td><input type="text" name="question[]" placeholder="Enter question"></td>
+    <td><input type="text" name="answer[]" placeholder="Enter answer"></td>
+    <td><button type="button" class="delete-flashcard-button" onclick="deleteFlashcard(this)">Delete</button>
+  `;
+  updateSaveButton()
+}
+
