@@ -30,8 +30,12 @@ To get started with QuizMe, follow the steps below:
 
 1. Clone this repository to your local machine.
 2. Ensure you have the required dependencies installed (see [Installation](#installation)).
-3. Run the application using `python app.py` in your terminal.
-4. Access the application at http://127.0.0.1:5000/ in your web browser.
+3. Copy the example environment file: `cp .env.example .env`
+   - **GEMINI_API_KEY**: Your Gemini API key.
+   - **SQLALCHEMY_DATABASE_URI**: Database URI (default is `sqlite:///quizme.db`).
+   - **SECRET_KEY**: A secret key for session management (generate your own).
+4. Run the application using `python app.py` in your terminal.
+5. Access the application at http://127.0.0.1:5000/ in your web browser.
 
 ## Installation
 
