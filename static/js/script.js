@@ -152,3 +152,19 @@ function addFlashcard() {
   `;
     updateSaveButton()
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+  const contentWrappers = document.querySelectorAll('.content-wrapper');
+  
+  contentWrappers.forEach(wrapper => {
+    const content = wrapper.querySelector('p');
+    const wrapperHeight = wrapper.clientHeight;
+    const contentHeight = content.clientHeight;
+    
+    if (contentHeight > wrapperHeight) {
+      wrapper.style.justifyContent = 'flex-end';
+    } else {
+      wrapper.style.justifyContent = 'center';
+    }
+  });
+});

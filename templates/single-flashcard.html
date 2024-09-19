@@ -55,14 +55,18 @@
     {% for flashcard in flashcards %}
     <div class="card-design">
       <div class="front">
-        <p>{{ flashcard.front }}</p>
+        <div class="content-wrapper">
+          <p>{{ flashcard.front }}</p>
+        </div>
       </div>
       <div class="back">
-        <p>{{ flashcard.back }}</p>
+        <div class="content-wrapper">
+          <p>{{ flashcard.back }}</p>
+        </div>
         <button class="favorite-button">&#9733;</button>
-
       </div>
     </div>
+    
     {% endfor %}
 
     <div class="flashcard-navigation">
@@ -75,14 +79,13 @@
         <span class="button-text">Next</span>
         <span class="button-icon">&#9654;</span>
       </button>
-    </div>
+  </div>
 
   <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
 
 </body>
 </html>
-
 <style>
 
 
