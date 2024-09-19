@@ -1,4 +1,6 @@
-{% extends "base.html" %}
+{<!-- flashcards.html   -->
+
+  % extends "base.html" %}
 
 {% block title %}QuizMe - Save your generated flashcards{% endblock %}
 
@@ -7,12 +9,14 @@
   <section class="flashcards">
     <form method="POST" action="{{ url_for('your_flashcards') }}">
       <h2>Flashcards</h2>
-      {% if flashcards|length == 0 %}
+      
+        {% if error_message %}
         <div class="error-message">
-          <p>Sorry, we couldn't generate flashcards for you.
-            <a href="{{ url_for('get_started') }}">Click here to try again</a>.</p>
+          {{ error_message }}
         </div>
-      {% else %}
+        <br>
+      {% endif %}
+
       <table id="flashcard-table">
         <tr>
           <th>Question</th>
@@ -21,16 +25,15 @@
 
         </tr>
         {% for flashcard in flashcards %}
-        <tr class="{% if loop.index > (flashcards|length - length_of_new_flashcards) %}new-flashcard{% endif %}">
-          <td><input type="text" name="question[]" value="{{ flashcard['Front'] }}"></td>
-          <td><input type="text" name="answer[]" value="{{ flashcard['Back'] }}"></td>
+        <tr class="{% if loop.index > (flashcards|length - LengthOfNewFlashcards) %}new-flashcard{% endif %}">
+          <td><input type="text" name="question[]" value="{{ flashcard['Front'] }}" required></td>
+          <td><input type="text" name="answer[]" value="{{ flashcard['Back'] }} " required ></td>
           <td>
             <button type="button" class="delete-flashcard-button" onclick="deleteFlashcard(this)">Delete</button>
           </td>
         </tr>
         {% endfor %}
       </table>
-      {% endif %}
       <label for="flashcard_set_name">Flashcard Set Name:</label>
 
       <input type="text" id="flashcard_set_name" name="flashcard_set_name" required>
@@ -42,7 +45,7 @@
       <button id="save_fulashcards" type="submit" disabled>Save Changes</button>
     </form>
   </section>
-
+  
   <script>
     // Initial check when the page loads
     document.addEventListener('DOMContentLoaded', updateSaveButton);

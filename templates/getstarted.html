@@ -1,3 +1,5 @@
+<!-- getstarted.html   -->
+
 {% extends "base.html" %}
 
 {% block title %}QuizMe - Get Started{% endblock %}
@@ -11,7 +13,10 @@
       </div>
       <div class="get-started-container">
           <form method="POST" action="{{ url_for('create_flashcards') }}" onsubmit="return showGeneratingMessage()">
-              <div class="text-material">
+            <div class="text-material">
+                    {% if error_message %}
+                    <p class="error-message" id="error-message">{{ error_message }}</p>
+                    {% endif %}
                   <label for="study_material">Enter your study material here:</label>
                   <textarea id="study_material" name="study_material" placeholder="Enter your study notes here or provide a general topic (e.g., Geology key words or multiples of 9)" rows="6"></textarea>
               </div>
@@ -43,10 +48,7 @@
                 
                   
                   <div id="generating-message" style="display: none;">Flashcards are being generated. This might take a moment. Please wait.</div>
-                  
-                  {% if error_message %}
-                  <p class="error-message" id="error-message">{{ error_message }}</p>
-                  {% endif %}
+
                   <br>
                   
                   <button type="submit" class="create-flashcard-button">Create Flashcards</button>

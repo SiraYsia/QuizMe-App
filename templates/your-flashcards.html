@@ -28,12 +28,19 @@
                     <p></p>
                 {% endfor %}
             {% else %}
-                <p id="subtitle_your_flashcards">No matching flashcard set was found</p>
+            <p id="subtitle_your_flashcards">
+                {{message}}
+            <p> 
+            <a href="{{ url_for('get_started') }}">
+                <button type="button" class="create-flashcard-button">Create Flashcards Now!</button>
+            </a>
+                                  
             {% endif %}
         </div>
     </div>
 
 </section>
+
 <br>
 <br>
 {% endblock %}
