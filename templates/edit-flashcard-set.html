@@ -16,8 +16,8 @@
         </tr>
         {% for flashcard in flashcard_set.flashcards %}
           <tr>
-            <td><input type="text" name="question[]" value="{{ flashcard.front }}" required></td>
-            <td><input type="text" name="answer[]" value="{{ flashcard.back }}" required></td>
+            <td><input type="text" name="question[]" value="{{ flashcard.front }}" required oninput="checkInput(this)"></td>
+            <td><input type="text" name="answer[]" value="{{ flashcard.back }}" required oninput="checkInput(this)" ></td>
             <td>
               <button type="button" class="delete-flashcard-button" onclick="deleteFlashcard(this)">Delete</button>
             </td>

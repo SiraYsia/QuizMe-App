@@ -146,8 +146,8 @@ function addFlashcard() {
     const table = document.getElementById('flashcard-table');
     const newRow = table.insertRow(-1);
     newRow.innerHTML = `
-    <td><input type="text" name="question[]" placeholder="Enter question" required></td>
-    <td><input type="text" name="answer[]" placeholder="Enter answer" required></td>
+    <td><input type="text" id="flashcard_input" name="question[]" placeholder="Enter question" required></td>
+    <td><input type="text" id="flashcard_input" name="answer[]" placeholder="Enter answer" required></td>
     <td><button type="button" class="delete-flashcard-button" onclick="deleteFlashcard(this)">Delete</button>
   `;
     updateSaveButton()
@@ -168,3 +168,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 });
+
+// Trim the input's value and check if it's still empty
+function checkInput(input) {
+    if (input.value.trim() === "") {
+      input.setCustomValidity("This field cannot be empty or just spaces.");
+    } else {
+      input.setCustomValidity(""); 
+    }
+  }

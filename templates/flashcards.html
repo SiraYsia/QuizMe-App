@@ -26,8 +26,8 @@
         </tr>
         {% for flashcard in flashcards %}
         <tr class="{% if loop.index > (flashcards|length - LengthOfNewFlashcards) %}new-flashcard{% endif %}">
-          <td><input type="text" name="question[]" value="{{ flashcard['Front'] }}" required></td>
-          <td><input type="text" name="answer[]" value="{{ flashcard['Back'] }} " required ></td>
+          <td><input type="text" name="question[]" value="{{ flashcard['Front'] }}" required oninput="checkInput(this)"></td>
+          <td><input type="text" name="answer[]" value="{{ flashcard['Back'] }} " required oninput="checkInput(this)" ></td>
           <td>
             <button type="button" class="delete-flashcard-button" onclick="deleteFlashcard(this)">Delete</button>
           </td>
@@ -36,7 +36,7 @@
       </table>
       <label for="flashcard_set_name">Flashcard Set Name:</label>
 
-      <input type="text" id="flashcard_set_name" name="flashcard_set_name" required>
+      <input type="text" id="flashcard_set_name" name="flashcard_set_name" required oninput="checkInput(this)">
       <div class="button-container">
       <button type="button" id="add-flashcard" class="add-flashcard-button" onclick="addFlashcard()">+</button>      <br><br>
       </div>
