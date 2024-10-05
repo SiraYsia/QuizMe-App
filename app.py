@@ -401,7 +401,14 @@ def single_flashcard(flashcard_set_name):
 
 @app.route("/shared/<share_link>")
 def shared_flashcard(share_link):
-    flashcard_set = shared_links.get(share_link)
+
+    flashcard_set = None
+    for user_id, links in shared_links.items():
+        if share_link in links:
+            flashcard_set_id = links[share_link]
+            flashcard_set = FlashcardSet.query.get(flashcard_set_id)
+            break
+
     if flashcard_set:
         flashcards = flashcard_set.flashcards
         return render_template(
