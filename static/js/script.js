@@ -146,8 +146,8 @@ function addFlashcard() {
     const table = document.getElementById('flashcard-table');
     const newRow = table.insertRow(-1);
     newRow.innerHTML = `
-    <td><input type="text" id="flashcard_input" name="question[]" placeholder="Enter question" required></td>
-    <td><input type="text" id="flashcard_input" name="answer[]" placeholder="Enter answer" required></td>
+    <td><input type="text" required oninput="checkInput(this)" id="flashcard_input" name="question[]" placeholder="Enter question"></td>
+    <td><input type="text" required oninput="checkInput(this)" id="flashcard_input" name="answer[]" placeholder="Enter answer"></td>
     <td><button type="button" class="delete-flashcard-button" onclick="deleteFlashcard(this)">Delete</button>
   `;
     updateSaveButton()
