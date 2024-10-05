@@ -48,9 +48,30 @@
   </div>
 
   <div class="title_of_flashcard_set">
-    <h2>{{ flashcard_set_name }}</h2>
-  </div>
-  
+    <h2>{{ flashcard_set_name }}
+
+    <button class="share-button" onclick="openShareModal()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/>
+          <polyline points="16 6 12 2 8 6"/>
+          <line x1="12" y1="2" x2="12" y2="15"/>
+      </svg>
+    </button>
+    
+    <div id="shareModal" class="modal">
+      <div class="modal-content">
+          <span class="close" onclick="closeShareModal()">&times;</span>
+          <h2>Share this flashcard set</h2>
+          <p>Copy the link below to share these flashcards with others:</p>
+          <div class="share-link-container">
+              <input type="text" id="shareLinkInput" class="share-link-input" value="{{ share_link }}" readonly>
+              <button onclick="copyShareLink()" class="copy-button">Copy</button>
+          </div>
+      </div>
+    </div>
+  </h2>
+</div>
+
   <div class="wrapper">
     {% for flashcard in flashcards %}
     <div class="card-design">
@@ -82,7 +103,22 @@
   </div>
 
   <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  <script>
 
+  function copyShareLink() {
+        var copyText = document.getElementById("shareLinkInput");
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); 
+        document.execCommand("copy");
+        
+        var copyButton = document.querySelector(".copy-button");
+        copyButton.textContent = "Copied!";
+        setTimeout(function() {
+            copyButton.textContent = "Copy";
+        }, 2000);
+    }
+
+  </script>
 
 </body>
 </html>

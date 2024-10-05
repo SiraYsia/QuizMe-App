@@ -9,8 +9,12 @@ import git
 import os
 from dotenv import load_dotenv
 from sqlalchemy import func
+import uuid
+from flask import abort
 
 load_dotenv()
+
+shared_links = {}
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
@@ -89,7 +93,9 @@ def index():
 def login():
 
     if "user_id" in session:
-        return redirect(url_for("your_flashcards"))
+        user = User.query.get(session["user_id"])
+        if user: 
+            return redirect(url_for("your_flashcards"))
 
     if request.method == "POST":
         email = request.form.get("email")
@@ -119,7 +125,9 @@ def login():
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
     if "user_id" in session:
-        return redirect(url_for("your_flashcards"))
+        user = User.query.get(session["user_id"])
+        if user:  # Check if the user exists in the database
+            return redirect(url_for("your_flashcards"))
 
     if request.method == "POST":
         email = request.form.get("email")
@@ -282,7 +290,7 @@ def view_flashcards():
 
     length_of_new_flashcards = request.args.get(
         "LengthOfNewFlashcards", default=0, type=int
-    )  # Change this line
+    )  
     return render_template(
         "flashcards.html",
         flashcards=flashcards_temp,
@@ -350,6 +358,7 @@ def your_flashcards():
     )
 
 
+
 @app.route("/YourFlashcards/<flashcard_set_name>")
 def single_flashcard(flashcard_set_name):
     if "user_id" not in session:
@@ -366,13 +375,42 @@ def single_flashcard(flashcard_set_name):
 
     if flashcard_set:
         flashcards = flashcard_set.flashcards
+        share_link = None 
+
+        # Check if the user already has a share link for this flashcard set
+        if user_id in shared_links:
+            for link, fs in shared_links[user_id].items(): 
+                if fs == flashcard_set.id:  
+                    share_link = link            
+                    break     
+
+        if not share_link:
+            share_link = str(uuid.uuid4())
+            if user_id not in shared_links:
+                shared_links[user_id] = {}
+            shared_links[user_id][share_link] = flashcard_set.id 
+
         return render_template(
             "single-flashcard.html",
             flashcards=flashcards,
             flashcard_set_name=flashcard_set_name,
+            share_link=f"{request.host_url}shared/{share_link}"
         )
     else:
-        return "Flashcard set not found"
+        return abort(404)
+
+@app.route("/shared/<share_link>")
+def shared_flashcard(share_link):
+    flashcard_set = shared_links.get(share_link)
+    if flashcard_set:
+        flashcards = flashcard_set.flashcards
+        return render_template(
+            "shared-flashcard.html",
+            flashcards=flashcards,
+            flashcard_set_name=flashcard_set.name
+        )
+    else:
+        abort(404)
 
 
 @app.route("/EditSet/<flashcard_set_name>", methods=["GET", "POST"])

@@ -177,3 +177,33 @@ function checkInput(input) {
       input.setCustomValidity(""); 
     }
   }
+
+// Share your flashcards 
+
+  var modal = document.getElementById("shareModal");
+
+  function openShareModal() {
+      modal.style.display = "block";
+  }
+
+  function closeShareModal() {
+      modal.style.display = "none";
+  }
+
+
+
+  // Close the modal if the user clicks outside of it
+  window.onclick = function(event) {
+      if (event.target == modal) {
+          modal.style.display = "none";
+      }
+  }
+
+function copyShareLink() {
+    var shareLink = "{{ share_link }}";
+    navigator.clipboard.writeText(shareLink).then(function() {
+    alert("Share link copied to clipboard!");
+    }, function(err) {
+    console.error('Could not copy text: ', err);
+    });
+}

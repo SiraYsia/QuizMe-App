@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>QuizMe - Shared Flashcards</title>
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <h1><b>QuizMe</b></h1>
+        </div>
+    </header>
+
+    <div class="title_of_flashcard_set">
+        <h2>{{ flashcard_set_name }} (Shared)</h2>
+    </div>
+
+    <div class="wrapper">
+        {% for flashcard in flashcards %}
+        <div class="card-design">
+            <div class="front">
+                <div class="content-wrapper">
+                    <p>{{ flashcard.front }}</p>
+                </div>
+            </div>
+            <div class="back">
+                <div class="content-wrapper">
+                    <p>{{ flashcard.back }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        <div class="flashcard-navigation">
+            <button id="prev-button" class="nav-button">
+                <span class="button-text">Prev</span>
+                <span class="button-icon">&#9664;</span>
+            </button>
+            <div id="flashcard-count" class="count-bubble">1 / 1</div>
+            <button id="next-button" class="nav-button">
+                <span class="button-text">Next</span>
+                <span class="button-icon">&#9654;</span>
+            </button>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
+
+
+<style>
+
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    </style>
