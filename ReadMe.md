@@ -13,13 +13,14 @@ QuizMe is a full-stack web application that dynamically generates personalized f
 ## Features
 
 - **Personalized Flashcard Generation:** Dynamically generates personalized flashcards from study materials using the Google Gemini API.
-- **Unlimited Flashcards:** Allows users to create and manage an unlimited number of flashcards.
-- **Star and Bookmark Flashcards:** Enables users to star and bookmark flashcards for easy access and review.
+- **Unlimited Flashcards:** Create and manage an unlimited number of flashcards.
+- **Star and Bookmark Flashcards:** Star and bookmark flashcards for easy access and review.
 - **User Authentication:** Provides secure login functionality using bcrypt-based user authentication.
 - **Account-Based Storage:** Stores all generated flashcards in the user’s account, allowing users to access and manage their flashcards upon returning.
-- **Robust Backend:** Implements Flask and SQLAlchemy for a robust backend, efficiently managing the SQLite database.
-- **User-Friendly Frontend:** Offers a seamless user experience with a frontend built using HTML, CSS, and JavaScript.
-- **Web Browser Access:** Allows users to access and interact with flashcards through a web browser.
+- **Robust Backend:** Flask and SQLAlchemy for a robust backend, efficiently managing the SQLite database.
+- **User-Friendly Frontend:** Seamless user experience with a frontend built using HTML, CSS, and JavaScript.
+- **Web Browser Access:** Access and interact with flashcards through a web browser.
+- **Share:** Share and access shared flashcards without login. 
 
 You can access the application here: [QuizMe](http://quizmeapp.pythonanywhere.com/)
 
