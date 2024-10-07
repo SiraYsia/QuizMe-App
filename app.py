@@ -373,6 +373,16 @@ def single_flashcard(flashcard_set_name):
         name=flashcard_set_name, user=user
     ).first()
 
+
+# shared_links = {
+#     user_id_1: {
+#         "share_link_1": flashcard_set_id_1,
+#         "share_link_2": flashcard_set_id_2,
+#     },
+#     user_id_2: {
+#         "share_link_3": flashcard_set_id_3,
+#     },
+# }
     if flashcard_set:
         flashcards = flashcard_set.flashcards
         share_link = None 
